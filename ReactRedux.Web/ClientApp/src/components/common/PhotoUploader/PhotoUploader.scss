@@ -1,0 +1,19 @@
+﻿$max-photo-width: 160px;
+$max-photo-height: 160px;
+
+.photo-uploader-photo {
+    a {
+        width: $max-photo-width + 2px;
+        height: $max-photo-height + 2px;
+    }
+
+    img {
+        max-width: $max-photo-width;
+        max-height: $max-photo-height;
+    }
+}
+
+.photo-uploader-photo-footer {
+    width: $max-photo-width;
+    height: 30px;
+}

@@ -1,0 +1,91 @@
+@import "../../../mixins";
+
+$preview-width: 80px;
+$preview-height: 80px;
+
+.dropzone {
+    min-height: 80px;
+    border: 2px dashed #666;
+    border-radius: 5px;
+    padding-top: 10px;
+
+    &.dropzone-readonly {
+        min-height: 0;
+        border: none;
+        border-radius: 0;
+        padding-top: 0;
+    }
+}
+
+@include IE {
+    // Хак для IE, так как он не центрирует по вертикали, если у flex-родителя не задана высота
+    .dropzone:after {
+        content: '';
+        min-height: inherit;
+        font-size: 0;
+    }
+}
+
+.dropzone-active, .dropzone-rejected {
+    border-style: solid;
+    background-color: #eee;
+}
+
+.dropzone-active {
+    border-color: #6c6;
+}
+
+.dropzone-rejected {
+    border-color: #c66;
+}
+
+.dropzone-message {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.dropzone-file {
+    width: $preview-width;
+}
+
+.dropzone-file-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: $preview-height;
+}
+
+.dropzone-file-preview-icon, .dropzone-file-preview-image {
+    width: auto !important;
+    max-width: $preview-width;
+    max-height: $preview-height;
+}
+
+.dropzone-file-preview-icon {
+    height: 100%;
+}
+
+.dropzone-file-delete-icon {
+    align-self: flex-start;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.3em;
+    color: orangered;
+    cursor: pointer;
+}
+
+.dropzone-file-name {
+    max-width: 100px;
+}
+
+.dropzone-file-error {
+    margin-top: -4px;
+    font-size: .9em;
+    font-weight: 600;
+}
+
+.dropzone-file-extra-info {
+    min-height: 15px;
+}

@@ -1,0 +1,33 @@
+﻿.search-inputs {
+    .form-control {
+        width: 90%;
+    }
+
+    .react-datepicker-wrapper {
+        display: block;
+        max-width: 160px;
+    }
+
+    .react-select {
+        width: 90%;
+    }
+}
+
+.search-inputs-block-header {
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid lightgray
+}
+
+.search-btn {
+    margin-top: .5rem;
+}
+
+.search-result {
+    margin-top: 1rem;
+}
+
+.search-result-photo {
+    max-width: 20px;
+    max-height: 20px;
+}

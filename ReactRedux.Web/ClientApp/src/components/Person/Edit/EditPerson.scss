@@ -1,0 +1,26 @@
+﻿@import "../Person";
+
+.person-card-edit {
+    .col-form-label {
+        padding-right: 0;
+    }
+
+    .remove-item-col {
+        padding-left: 0;
+    }
+
+    .remove-item-btn {
+        float: none;
+    }
+
+    .validation-message-under {
+        margin-bottom: -1rem;
+    }
+}
+
+.person-card-social-networks-block {
+    .social-icon-label {
+        flex-basis: 1%;
+        font-size: 1.2em;
+    }
+}

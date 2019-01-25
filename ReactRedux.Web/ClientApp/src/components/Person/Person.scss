@@ -1,0 +1,52 @@
+﻿.person-card {
+    max-width: 950px;
+}
+
+.person-card-form {
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
+}
+
+.person-card-section {
+    margin: 1rem;
+}
+
+.person-card-section-header {
+    background-color: #e6e6e6;
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.person-card-label {
+    margin-right: .5rem;
+    font-weight: bolder;
+}
+
+.person-card-person-name {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.person-card-social-icon-row {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.person-card-social-icon-label {
+    font-size: 1.2rem;
+}
+
+.person-card-social-icon-value {
+    vertical-align: top;
+}
+
+.person-card-photo-col {
+    max-width: 21%;
+}
+
+.person-card-action-btn {
+    float: right;
+}
