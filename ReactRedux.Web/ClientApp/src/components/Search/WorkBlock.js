@@ -107,14 +107,6 @@ const WorkBlock = props => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Row form>
-                        <Col xs={6}>
-                            <FormGroup>
-                                <Label for="previousWorkPlaces" >Предыдущие места работы</Label>
-                                <Input type="textarea" bsSize="sm" id="previousWorkPlaces" value={props.previousWorkPlaces} onChange={e => handleStateChange({ previousWorkPlaces: e.target.value })} />
-                            </FormGroup>
-                        </Col>
-                    </Row>
                 </div>
             </Collapse>
         </div>

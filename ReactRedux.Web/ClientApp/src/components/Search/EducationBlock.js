@@ -49,14 +49,6 @@ const EducationBlock = props => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Row form>
-                        <Col xs={6}>
-                            <FormGroup>
-                                <Label for="educationExtraInfo">Дополнительная информация</Label>
-                                <Input type="textarea" bsSize="sm" id="educationExtraInfo" value={props.educationExtraInfo} onChange={e => handleStateChange({ educationExtraInfo: e.target.value })} />
-                            </FormGroup>
-                        </Col>
-                    </Row>
                 </div>
             </Collapse>
         </div>

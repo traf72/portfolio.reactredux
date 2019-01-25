@@ -52,13 +52,14 @@ const PersonalInfoBlock = props => {
                 <Row form>
                     <Col>
                         <FormGroup>
-                            <Label for="birthDate">Дата рождения</Label>
-                            <DatePicker
-                                id="birthDate"
-                                bsSize="sm"
-                                selected={props.birthDate}
-                                onChange={value => handleStateChange({ birthDate: value })}
-                            />
+                            <Label for="startAge">Возраст</Label>
+                            <div>
+                                <Input type="number" bsSize="sm" id="startAge" value={props.startAge} className="d-inline-block w-25"
+                                    onChange={e => handleStateChange({ startAge: e.target.value })} />
+                                <span className="mx-2">-</span>
+                                <Input type="number" bsSize="sm" id="endAge" value={props.endAge} className="d-inline-block w-25"
+                                    onChange={e => handleStateChange({ endAge: e.target.value })} />
+                            </div>
                         </FormGroup>
                     </Col>
                     <Col>
@@ -81,7 +82,7 @@ const PersonalInfoBlock = props => {
                     </Col>
                 </Row>
                 <Row form>
-                    <Col>
+                    <Col xs={3}>
                         <FormGroup>
                             <Label for="federalDistrict">Федеральный округ</Label>
                             <Select
@@ -95,7 +96,7 @@ const PersonalInfoBlock = props => {
                             />
                         </FormGroup>
                     </Col>
-                    <Col>
+                    <Col xs={3}>
                         <FormGroup>
                             <Label for="region">Регион</Label>
                             <Select
@@ -111,7 +112,7 @@ const PersonalInfoBlock = props => {
                     </Col>
                 </Row>
                 <Row form>
-                    <Col xs={4}>
+                    <Col xs={3}>
                         <FormGroup>
                             <Label for="documentType">Документ</Label>
                             <Select
