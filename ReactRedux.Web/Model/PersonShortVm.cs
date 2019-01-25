@@ -27,11 +27,6 @@ namespace ReactRedux.Web.Model
         /// </summary>
         public string Region { get; set; }
 
-        /// <summary>
-        /// Населённый пункт
-        /// </summary>
-        public string Locality { get; set; }
-
         public string EducationLevel { get; set; }
 
         public string University { get; set; }

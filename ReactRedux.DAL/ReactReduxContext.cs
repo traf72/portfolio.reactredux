@@ -89,6 +89,7 @@ namespace ReactRedux.DAL
             });
 
             modelBuilder.Entity<FederalDistrict>().HasData(ReactReduxSeed.GetSeedData<FederalDistrict>());
+            modelBuilder.Entity<Region>().HasData(ReactReduxSeed.GetSeedData<Region>());
             modelBuilder.Entity<IdentityDocument>().HasData(ReactReduxSeed.GetSeedData<IdentityDocument>());
             modelBuilder.Entity<EducationLevel>().HasData(ReactReduxSeed.GetSeedData<EducationLevel>());
             modelBuilder.Entity<Industry>().HasData(ReactReduxSeed.GetSeedData<Industry>());

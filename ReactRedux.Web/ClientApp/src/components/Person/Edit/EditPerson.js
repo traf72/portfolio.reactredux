@@ -13,7 +13,7 @@ import SocialNetworksBlock from './SocialNetworksBlock';
 import FamilyStatusBlock from './FamilyStatusBlock';
 import ForeignerBlock from './ForeignerBlock';
 import FilesBlock from './FilesBlock';
-import { fetchCatalog, REGION_LOCALITIES } from '../../../ducks/Catalog';
+import { fetchCatalog } from '../../../ducks/Catalog';
 import {
     fetchPerson, savePerson, newPerson, newPersonSelector, personFullSelector,
     personalInfoBlockCatalogs, educationBlockCatalogs, workInfoBlockCatalogs, languagesBlockCatalogs,
@@ -59,7 +59,6 @@ class EditPerson extends Component {
                     phone: personalInfo.phone || '',
                     selectedDistrict: personalInfo.federalDistrict,
                     selectedRegion: personalInfo.region,
-                    selectedLocality: personalInfo.locality,
                     selectedDocument: personalInfo.document,
                     documentNumber: personalInfo.documentNumber || '',
                     photoId: personalInfo.photoId,
@@ -180,10 +179,6 @@ class EditPerson extends Component {
         }, {});
     }
 
-    loadLocalities = regionId => {
-        this.props.fetchCatalog(REGION_LOCALITIES, { regionId });
-    }
-
     onSubmit = e => {
         e.preventDefault();
         this.isFormValid = true;
@@ -203,7 +198,7 @@ class EditPerson extends Component {
             foreignerInfo, familyInfo, filesInfo, filesDirectoryId,
         } = this.state.person;
 
-        const { selectedDistrict, selectedDocument, selectedLocality, selectedRegion, selectedSex } = personalInfo;
+        const { selectedDistrict, selectedDocument, selectedRegion, selectedSex } = personalInfo;
         const { selectedEducationLevel } = educationInfo;
         const { selectedEmployeesNumber, selectedExperience, selectedIndustry, selectedManagementLevel, selectedWorkArea } = workInfo;
 
@@ -211,7 +206,6 @@ class EditPerson extends Component {
             ...personalInfo,
             federalDistrictId: selectedDistrict.id,
             regionId: selectedRegion.id,
-            localityId: selectedLocality.id,
             documentId: selectedDocument.id,
             sex: selectedSex.id,
             familyStatus: familyInfo.selectedFamilyStatus && familyInfo.selectedFamilyStatus.id,
@@ -254,7 +248,6 @@ class EditPerson extends Component {
                     <PersonalInfoBlock
                         handleStateChange={this.handleStateChange.bind(null, 'personalInfo')}
                         isInputInvalid={this.isInputInvalid.bind(null, 'personalInfo')}
-                        loadLocalities={this.loadLocalities}
                         getInputErrorMessage={this.getInputErrorMessage}
                         {...this.getCatalogs(personalInfoBlockCatalogs)}
                         filesDirectoryId={this.props.person.filesDirectoryId}

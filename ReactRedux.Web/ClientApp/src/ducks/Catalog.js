@@ -8,7 +8,6 @@ import RequestError from '../RequestError';
 
 export const FEDERAL_DISTRICTS = 'federalDistricts';
 export const REGIONS = 'regions';
-export const REGION_LOCALITIES = 'regionLocalities';
 export const IDENTITY_DOCUMENTS = 'identityDocuments';
 export const EDUCATIONAL_LEVELS = 'educationalLevels';
 export const INDUSTRIES = 'industries';
@@ -48,7 +47,6 @@ const enumCatalogInitialState = {
 const initialState = {
     [FEDERAL_DISTRICTS]: catalogInitialState,
     [REGIONS]: catalogInitialState,
-    [REGION_LOCALITIES]: { ...catalogInitialState, loadComplete: true }, // Если регион не указан, то пустой массив это и есть данные
     [IDENTITY_DOCUMENTS]: catalogInitialState,
     [EDUCATIONAL_LEVELS]: catalogInitialState,
     [INDUSTRIES]: catalogInitialState,

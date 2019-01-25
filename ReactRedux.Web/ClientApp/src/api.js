@@ -40,7 +40,7 @@ export const getDownloadFileUrl = fileId => {
 const getHostIfNeed = () => {
     let host = '';
     if (process.env.NODE_ENV === 'development') {
-        host = 'https://localhost:44357/';
+        host = 'http://localhost:8091/';
     }
 
     return host;

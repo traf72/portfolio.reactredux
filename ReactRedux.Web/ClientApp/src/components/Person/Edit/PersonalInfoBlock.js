@@ -6,7 +6,7 @@ import Select, { VirtualizedSelect } from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import InputMask from '../../common/InputMask';
 import ValidationMessage from '../../common/ValidationMessage';
-import { SEX, FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS } from '../../../ducks/Catalog';
+import { SEX, FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS } from '../../../ducks/Catalog';
 import { showWarningAlert, showErrorAlert } from '../../../ducks/Alert';
 import { phoneMask } from '../../../constants';
 import { requireValidator, emailValidator, regexValidator, phoneValidator } from '../../../libs/validators';
@@ -23,12 +23,7 @@ class PersonalInfoBlock extends Component {
                 ? this.props[FEDERAL_DISTRICTS].data.find(x => x.id === region.federalDistrictId)
                 : null,
             selectedRegion: region,
-            selectedLocality: null,
         });
-
-        if (region) {
-            this.props.loadLocalities(region.id);
-        }
     }
 
     handleDocumentNumberChange = e => {
@@ -194,22 +189,6 @@ class PersonalInfoBlock extends Component {
                             invalid={isInputInvalid('selectedRegion', [requireValidator('Выберите регион')])}
                         />
                         <ValidationMessage className="validation-message-under">{getInputErrorMessage('selectedRegion')}</ValidationMessage>
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="locality" xs={2}>Населённый пункт*</Label>
-                    <Col xs={5}>
-                        <VirtualizedSelect
-                            inputId="locality"
-                            value={this.props.selectedLocality}
-                            onChange={item => handleStateChange({ selectedLocality: item })}
-                            options={this.props[REGION_LOCALITIES].data}
-                            catalog
-                            bsSize="sm"
-                            isLoading={this.props[REGION_LOCALITIES].loading}
-                            invalid={isInputInvalid('selectedLocality', [requireValidator('Выберите населённый пункт')])}
-                        />
-                        <ValidationMessage className="validation-message-under">{getInputErrorMessage('selectedLocality')}</ValidationMessage>
                     </Col>
                 </FormGroup>
                 <FormGroup row>

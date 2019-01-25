@@ -25,8 +25,6 @@ namespace ReactRedux.Web.Model
 
         public Guid? RegionId { get; set; }
 
-        public Guid? LocalityId { get; set; }
-
         public int? DocumentId { get; set; }
 
         public string DocumentNumber { get; set; }

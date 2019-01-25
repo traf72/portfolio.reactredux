@@ -18,7 +18,7 @@ export default class NavMenu extends React.Component {
         return (
             <header>
                 <Navbar className="nav-menu p-0 shadow" fixed="top" expand="sm" color="dark" dark>
-                    <NavbarBrand className="mx-3" tag="span">Кадровый резерв</NavbarBrand>
+                    <NavbarBrand className="mx-3" tag="span">ReactRedux</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} className="mr-2" />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="mr-auto my-2 my-sm-0" navbar></Nav>

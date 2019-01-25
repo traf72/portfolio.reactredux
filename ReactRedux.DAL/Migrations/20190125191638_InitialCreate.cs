@@ -279,8 +279,7 @@ namespace ReactRedux.DAL.Migrations
                     BirthDate = table.Column<DateTime>(type: "Date", nullable: false),
                     Sex = table.Column<string>(maxLength: 20, nullable: false),
                     FederalDistrictId = table.Column<int>(nullable: false),
-                    RegionId = table.Column<Guid>(nullable: false),
-                    LocalityId = table.Column<Guid>(nullable: false),
+                    RegionId = table.Column<int>(nullable: false),
                     FamilyStatus = table.Column<string>(maxLength: 50, nullable: true),
                     ChildrenInfo = table.Column<string>(maxLength: 100, nullable: true),
                     PhotoId = table.Column<Guid>(nullable: true),
@@ -308,6 +307,12 @@ namespace ReactRedux.DAL.Migrations
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Persons_Region_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Region",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -2803,6 +2808,431 @@ namespace ReactRedux.DAL.Migrations
                 columns: new[] { "Id", "Author", "Code", "Modified", "Modifier", "Name" },
                 values: new object[] { 22, "Developer", "22", null, null, "Юриспруденция" });
 
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 31, "Developer", "31", 1, null, null, "Белгородская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 72, "Developer", "72", 6, null, null, "Тюменская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 66, "Developer", "66", 6, null, null, "Свердловская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 45, "Developer", "45", 6, null, null, "Курганская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 73, "Developer", "73", 5, null, null, "Ульяновская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 64, "Developer", "64", 5, null, null, "Саратовская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 63, "Developer", "63", 5, null, null, "Самарская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 59, "Developer", "59", 5, null, null, "Пермский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 58, "Developer", "58", 5, null, null, "Пензенская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 56, "Developer", "56", 5, null, null, "Оренбургская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 52, "Developer", "52", 5, null, null, "Нижегородская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 43, "Developer", "43", 5, null, null, "Кировская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 21, "Developer", "21", 5, null, null, "Чувашская Республика - Чувашия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 18, "Developer", "18", 5, null, null, "Удмуртская Республика" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 16, "Developer", "16", 5, null, null, "Республика Татарстан (Татарстан)" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 13, "Developer", "13", 5, null, null, "Республика Мордовия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 12, "Developer", "12", 5, null, null, "Республика Марий Эл" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 2, "Developer", "02", 5, null, null, "Республика Башкортостан" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 74, "Developer", "74", 6, null, null, "Челябинская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 86, "Developer", "86", 6, null, null, "Ханты-Мансийский автономный округ - Югра" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 89, "Developer", "89", 6, null, null, "Ямало-Ненецкий автономный округ" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 4, "Developer", "04", 7, null, null, "Республика Алтай" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 75, "Developer", "75", 8, null, null, "Забайкальский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 65, "Developer", "65", 8, null, null, "Сахалинская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 49, "Developer", "49", 8, null, null, "Магаданская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 41, "Developer", "41", 8, null, null, "Камчатский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 28, "Developer", "28", 8, null, null, "Амурская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 27, "Developer", "27", 8, null, null, "Хабаровский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 25, "Developer", "25", 8, null, null, "Приморский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 14, "Developer", "14", 8, null, null, "Республика Саха (Якутия)" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 26, "Developer", "26", 4, null, null, "Ставропольский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 3, "Developer", "03", 8, null, null, "Республика Бурятия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 55, "Developer", "55", 7, null, null, "Омская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 54, "Developer", "54", 7, null, null, "Новосибирская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 42, "Developer", "42", 7, null, null, "Кемеровская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 38, "Developer", "38", 7, null, null, "Иркутская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 24, "Developer", "24", 7, null, null, "Красноярский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 22, "Developer", "22", 7, null, null, "Алтайский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 19, "Developer", "19", 7, null, null, "Республика Хакасия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 17, "Developer", "17", 7, null, null, "Республика Тыва" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 70, "Developer", "70", 7, null, null, "Томская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 79, "Developer", "79", 8, null, null, "Еврейская автономная область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 20, "Developer", "20", 4, null, null, "Чеченская Республика" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 9, "Developer", "09", 4, null, null, "Карачаево-Черкесская Республика" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 77, "Developer", "77", 1, null, null, "Москва" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 76, "Developer", "76", 1, null, null, "Ярославская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 71, "Developer", "71", 1, null, null, "Тульская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 69, "Developer", "69", 1, null, null, "Тверская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 68, "Developer", "68", 1, null, null, "Тамбовская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 67, "Developer", "67", 1, null, null, "Смоленская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 62, "Developer", "62", 1, null, null, "Рязанская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 57, "Developer", "57", 1, null, null, "Орловская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 50, "Developer", "50", 1, null, null, "Московская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 48, "Developer", "48", 1, null, null, "Липецкая область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 46, "Developer", "46", 1, null, null, "Курская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 44, "Developer", "44", 1, null, null, "Костромская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 40, "Developer", "40", 1, null, null, "Калужская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 37, "Developer", "37", 1, null, null, "Ивановская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 36, "Developer", "36", 1, null, null, "Воронежская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 33, "Developer", "33", 1, null, null, "Владимирская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 32, "Developer", "32", 1, null, null, "Брянская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 10, "Developer", "10", 2, null, null, "Республика Карелия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 11, "Developer", "11", 2, null, null, "Республика Коми" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 29, "Developer", "29", 2, null, null, "Архангельская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 35, "Developer", "35", 2, null, null, "Вологодская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 7, "Developer", "07", 4, null, null, "Кабардино-Балкарская Республика" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 6, "Developer", "06", 4, null, null, "Республика Ингушетия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 5, "Developer", "05", 4, null, null, "Республика Дагестан" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 92, "Developer", "92", 3, null, null, "Севастополь" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 91, "Developer", "91", 3, null, null, "Республика Крым" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 61, "Developer", "61", 3, null, null, "Ростовская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 34, "Developer", "34", 3, null, null, "Волгоградская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 30, "Developer", "30", 3, null, null, "Астраханская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 15, "Developer", "15", 4, null, null, "Республика Северная Осетия - Алания" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 23, "Developer", "23", 3, null, null, "Краснодарский край" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 1, "Developer", "01", 3, null, null, "Республика Адыгея" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 83, "Developer", "83", 2, null, null, "Ненецкий автономный округ" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 78, "Developer", "78", 2, null, null, "Санкт-Петербург" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 60, "Developer", "60", 2, null, null, "Псковская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 53, "Developer", "53", 2, null, null, "Новгородская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 51, "Developer", "51", 2, null, null, "Мурманская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 47, "Developer", "47", 2, null, null, "Ленинградская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 39, "Developer", "39", 2, null, null, "Калининградская область" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 8, "Developer", "08", 3, null, null, "Республика Калмыкия" });
+
+            migrationBuilder.InsertData(
+                table: "Region",
+                columns: new[] { "Id", "Author", "Code", "FederalDistrictId", "Modified", "Modifier", "Name" },
+                values: new object[] { 87, "Developer", "87", 8, null, null, "Чукотский автономный округ" });
+
             migrationBuilder.CreateIndex(
                 name: "UX_Country_Code",
                 table: "Countries",
@@ -2936,6 +3366,11 @@ namespace ReactRedux.DAL.Migrations
                 column: "NationalityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Persons_RegionId",
+                table: "Persons",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersonSocialNetwork_PersonId",
                 table: "PersonSocialNetwork",
                 column: "PersonId");
@@ -2984,9 +3419,6 @@ namespace ReactRedux.DAL.Migrations
                 name: "PersonSocialNetwork");
 
             migrationBuilder.DropTable(
-                name: "Region");
-
-            migrationBuilder.DropTable(
                 name: "EducationLevels");
 
             migrationBuilder.DropTable(
@@ -3017,13 +3449,16 @@ namespace ReactRedux.DAL.Migrations
                 name: "SocialNetworks");
 
             migrationBuilder.DropTable(
-                name: "FederalDistricts");
-
-            migrationBuilder.DropTable(
                 name: "IdentityDocuments");
 
             migrationBuilder.DropTable(
                 name: "Countries");
+
+            migrationBuilder.DropTable(
+                name: "Region");
+
+            migrationBuilder.DropTable(
+                name: "FederalDistricts");
         }
     }
 }

@@ -1,28 +1,13 @@
 import React from 'react';
 import { Row, Col, FormGroup, Label, Input, Collapse } from 'reactstrap';
-import Select, { VirtualizedSelect } from '../common/Select';
+import Select from '../common/Select';
 import DatePicker from '../common/DatePicker';
 import CollapsableHeader from '../common/CollapsableHeader';
 import ToggleOpen from '../../decorators/ToggleOpen';
-import { SEX, FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS } from '../../ducks/Catalog';
+import { SEX, FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS } from '../../ducks/Catalog';
 
 const PersonalInfoBlock = props => {
     const { handleStateChange } = props;
-
-    function handleRegionChange(region) {
-        if (region === props.selectedRegion) {
-            return;
-        }
-
-        handleStateChange({
-            selectedRegion: region,
-            selectedLocality: null,
-        });
-
-        if (region) {
-            props.loadLocalities(region.id);
-        }
-    }
 
     return (
         <div className="search-inputs-personal-info-block">
@@ -116,26 +101,11 @@ const PersonalInfoBlock = props => {
                             <Select
                                 inputId="region"
                                 value={props.selectedRegion}
-                                onChange={handleRegionChange}
+                                onChange={item => handleStateChange({ selectedRegion: item })}
                                 options={props[REGIONS].data}
                                 isClearable
                                 catalog
                                 bsSize="sm"
-                            />
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <Label for="locality">Населённый пункт</Label>
-                            <VirtualizedSelect
-                                inputId="locality"
-                                value={props.selectedLocality}
-                                onChange={item => handleStateChange({ selectedLocality: item })}
-                                options={props[REGION_LOCALITIES].data}
-                                isClearable
-                                catalog
-                                bsSize="sm"
-                                isLoading={props[REGION_LOCALITIES].loading}
                             />
                         </FormGroup>
                     </Col>

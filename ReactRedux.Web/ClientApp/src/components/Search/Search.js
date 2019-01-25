@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { search, selector } from '../../ducks/Search';
 import { allActions as pageLoaderActions } from '../../ducks/PageLoader';
 import { person as personRoute } from '../../routes';
-import { fetchCatalog, REGION_LOCALITIES } from '../../ducks/Catalog';
+import { fetchCatalog } from '../../ducks/Catalog';
 import { personalInfoBlockCatalogs, educationBlockCatalogs, workInfoBlockCatalogs, allSearchCatalogs } from '../../ducks/Search';
 
 const columns = [
@@ -118,7 +118,6 @@ class Search extends Component {
             phone: '',
             selectedDistrict: null,
             selectedRegion: null,
-            selectedLocality: null,
             selectedDocument: null,
             documentNumber: '',
         },
@@ -163,10 +162,6 @@ class Search extends Component {
         }, {});
     }
 
-    loadLocalities = regionId => {
-        this.props.fetchCatalog(REGION_LOCALITIES, { regionId });
-    }
-
     onSubmit = e => {
         e.preventDefault();
 
@@ -179,7 +174,6 @@ class Search extends Component {
             sex: personalInfo.selectedSex && personalInfo.selectedSex.id,
             federalDistrictId: personalInfo.selectedDistrict && personalInfo.selectedDistrict.id,
             regionId: personalInfo.selectedRegion && personalInfo.selectedRegion.id,
-            localityId: personalInfo.selectedLocality && personalInfo.selectedLocality.id,
             documentId: personalInfo.selectedDocument && personalInfo.selectedDocument.id,
             educationLevelId: educationInfo.selectedEducationLevel && educationInfo.selectedEducationLevel.id,
             industryId: workInfo.selectedIndustry && workInfo.selectedIndustry.id,
@@ -198,7 +192,6 @@ class Search extends Component {
                 <Form className="search-inputs" onSubmit={this.onSubmit} autoComplete="off">
                     <PersonalInfoBlock
                         handleStateChange={this.handleStateChange.bind(null, 'personalInfo')}
-                        loadLocalities={this.loadLocalities}
                         {...this.state.personalInfo}
                         {...this.getCatalogs(personalInfoBlockCatalogs)}
                     />

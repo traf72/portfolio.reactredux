@@ -38,15 +38,9 @@ namespace ReactRedux.DAL.Entities
         /// <summary>
         /// Идентификатор субъекта РФ
         /// </summary>
-        // FK делать не нужно, так как в БД ФИАС субъектов с таким Id может быть несколько из-за историчности.
-        // При этом актуальный должен быть только один.
-        public Guid RegionId { get; set; }
+        public int RegionId { get; set; }
 
-        /// <summary>
-        /// Идентификатор населённого пункта
-        /// </summary>
-        // (FK делать не нужно по той же причине, что и для субъектов РФ)
-        public Guid LocalityId { get; set; }
+        public Region Region { get; set; }
 
         public FamilyStatus? FamilyStatus { get; set; }
 

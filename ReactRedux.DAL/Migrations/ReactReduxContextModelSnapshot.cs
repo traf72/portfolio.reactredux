@@ -39,7 +39,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(500);
@@ -2757,7 +2757,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -2858,7 +2858,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -2943,7 +2943,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -3044,7 +3044,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -3148,7 +3148,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -3577,7 +3577,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -4392,7 +4392,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -4477,7 +4477,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -4546,7 +4546,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -4639,7 +4639,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("FederalDistrictId");
 
@@ -4661,6 +4661,773 @@ namespace ReactRedux.DAL.Migrations
                     b.HasIndex("FederalDistrictId");
 
                     b.ToTable("Region");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Developer",
+                            Code = "01",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Республика Адыгея"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Developer",
+                            Code = "02",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Республика Башкортостан"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Developer",
+                            Code = "03",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Республика Бурятия"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Developer",
+                            Code = "04",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Республика Алтай"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Developer",
+                            Code = "05",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Республика Дагестан"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "Developer",
+                            Code = "06",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Республика Ингушетия"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Developer",
+                            Code = "07",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Кабардино-Балкарская Республика"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Developer",
+                            Code = "08",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Республика Калмыкия"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Author = "Developer",
+                            Code = "09",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Карачаево-Черкесская Республика"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Author = "Developer",
+                            Code = "10",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Республика Карелия"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Author = "Developer",
+                            Code = "11",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Республика Коми"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Author = "Developer",
+                            Code = "12",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Республика Марий Эл"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Author = "Developer",
+                            Code = "13",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Республика Мордовия"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Author = "Developer",
+                            Code = "14",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Республика Саха (Якутия)"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Author = "Developer",
+                            Code = "15",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Республика Северная Осетия - Алания"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Author = "Developer",
+                            Code = "16",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Республика Татарстан (Татарстан)"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Author = "Developer",
+                            Code = "17",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Республика Тыва"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Author = "Developer",
+                            Code = "18",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Удмуртская Республика"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Author = "Developer",
+                            Code = "19",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Республика Хакасия"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Author = "Developer",
+                            Code = "20",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Чеченская Республика"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Author = "Developer",
+                            Code = "21",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Чувашская Республика - Чувашия"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Author = "Developer",
+                            Code = "22",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Алтайский край"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Author = "Developer",
+                            Code = "23",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Краснодарский край"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Author = "Developer",
+                            Code = "24",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Красноярский край"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Author = "Developer",
+                            Code = "25",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Приморский край"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Author = "Developer",
+                            Code = "26",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 4,
+                            Name = "Ставропольский край"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Author = "Developer",
+                            Code = "27",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Хабаровский край"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Author = "Developer",
+                            Code = "28",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Амурская область"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Author = "Developer",
+                            Code = "29",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Архангельская область"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Author = "Developer",
+                            Code = "30",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Астраханская область"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Author = "Developer",
+                            Code = "31",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Белгородская область"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Author = "Developer",
+                            Code = "32",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Брянская область"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Author = "Developer",
+                            Code = "33",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Владимирская область"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Author = "Developer",
+                            Code = "34",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Волгоградская область"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Author = "Developer",
+                            Code = "35",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Вологодская область"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Author = "Developer",
+                            Code = "36",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Воронежская область"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Author = "Developer",
+                            Code = "37",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Ивановская область"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Author = "Developer",
+                            Code = "38",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Иркутская область"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Author = "Developer",
+                            Code = "39",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Калининградская область"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Author = "Developer",
+                            Code = "40",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Калужская область"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Author = "Developer",
+                            Code = "41",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Камчатский край"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Author = "Developer",
+                            Code = "42",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Кемеровская область"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Author = "Developer",
+                            Code = "43",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Кировская область"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Author = "Developer",
+                            Code = "44",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Костромская область"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Author = "Developer",
+                            Code = "45",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Курганская область"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Author = "Developer",
+                            Code = "46",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Курская область"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Author = "Developer",
+                            Code = "47",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Ленинградская область"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Author = "Developer",
+                            Code = "48",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Липецкая область"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Author = "Developer",
+                            Code = "49",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Магаданская область"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Author = "Developer",
+                            Code = "50",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Московская область"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Author = "Developer",
+                            Code = "51",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Мурманская область"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Author = "Developer",
+                            Code = "52",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Нижегородская область"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Author = "Developer",
+                            Code = "53",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Новгородская область"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Author = "Developer",
+                            Code = "54",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Новосибирская область"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Author = "Developer",
+                            Code = "55",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Омская область"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Author = "Developer",
+                            Code = "56",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Оренбургская область"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Author = "Developer",
+                            Code = "57",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Орловская область"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Author = "Developer",
+                            Code = "58",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Пензенская область"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Author = "Developer",
+                            Code = "59",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Пермский край"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Author = "Developer",
+                            Code = "60",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Псковская область"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Author = "Developer",
+                            Code = "61",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Ростовская область"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Author = "Developer",
+                            Code = "62",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Рязанская область"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Author = "Developer",
+                            Code = "63",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Самарская область"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Author = "Developer",
+                            Code = "64",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Саратовская область"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Author = "Developer",
+                            Code = "65",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Сахалинская область"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Author = "Developer",
+                            Code = "66",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Свердловская область"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Author = "Developer",
+                            Code = "67",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Смоленская область"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Author = "Developer",
+                            Code = "68",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Тамбовская область"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Author = "Developer",
+                            Code = "69",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Тверская область"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Author = "Developer",
+                            Code = "70",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 7,
+                            Name = "Томская область"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Author = "Developer",
+                            Code = "71",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Тульская область"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Author = "Developer",
+                            Code = "72",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Тюменская область"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Author = "Developer",
+                            Code = "73",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 5,
+                            Name = "Ульяновская область"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Author = "Developer",
+                            Code = "74",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Челябинская область"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Author = "Developer",
+                            Code = "75",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Забайкальский край"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Author = "Developer",
+                            Code = "76",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Ярославская область"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Author = "Developer",
+                            Code = "77",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 1,
+                            Name = "Москва"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Author = "Developer",
+                            Code = "78",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Санкт-Петербург"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            Author = "Developer",
+                            Code = "79",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Еврейская автономная область"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            Author = "Developer",
+                            Code = "83",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 2,
+                            Name = "Ненецкий автономный округ"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            Author = "Developer",
+                            Code = "86",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Ханты-Мансийский автономный округ - Югра"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            Author = "Developer",
+                            Code = "87",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 8,
+                            Name = "Чукотский автономный округ"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            Author = "Developer",
+                            Code = "89",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 6,
+                            Name = "Ямало-Ненецкий автономный округ"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            Author = "Developer",
+                            Code = "91",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Республика Крым"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            Author = "Developer",
+                            Code = "92",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FederalDistrictId = 3,
+                            Name = "Севастополь"
+                        });
                 });
 
             modelBuilder.Entity("ReactRedux.DAL.Entities.Catalogs.SocialNetwork", b =>
@@ -4678,7 +5445,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Icon")
                         .HasMaxLength(50);
@@ -4868,7 +5635,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -5087,7 +5854,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -5112,8 +5879,6 @@ namespace ReactRedux.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<Guid>("LocalityId");
-
                     b.Property<string>("MiddleName")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -5133,7 +5898,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<bool>("ReadyMoveToRussia");
 
-                    b.Property<Guid>("RegionId");
+                    b.Property<int>("RegionId");
 
                     b.Property<string>("Sex")
                         .IsRequired()
@@ -5146,6 +5911,8 @@ namespace ReactRedux.DAL.Migrations
                     b.HasIndex("IdentityDocumentId");
 
                     b.HasIndex("NationalityId");
+
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Persons");
                 });
@@ -5161,7 +5928,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("EducationLevelId");
 
@@ -5210,7 +5977,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("EmployeesNumberId");
 
@@ -5267,7 +6034,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("LanguageId");
 
@@ -5302,7 +6069,7 @@ namespace ReactRedux.DAL.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("Modified");
 
@@ -5345,6 +6112,11 @@ namespace ReactRedux.DAL.Migrations
                     b.HasOne("ReactRedux.DAL.Entities.Catalogs.Country", "Nationality")
                         .WithMany()
                         .HasForeignKey("NationalityId");
+
+                    b.HasOne("ReactRedux.DAL.Entities.Catalogs.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ReactRedux.DAL.Entities.PersonEducation", b =>

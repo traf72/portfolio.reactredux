@@ -1,25 +1,12 @@
 import React from 'react';
 import PhotoUploader from '../common/PhotoUploader';
 import { Row, Col } from 'reactstrap';
-import { trimStart, getFullBirthDate } from '../../utils';
+import { getFullBirthDate } from '../../utils';
 
 const PersonalInfoBlock = props => {
     function getFullName() {
         const { lastName = '', firstName = '', middleName = '' } = props;
         return `${lastName} ${firstName} ${middleName}`;
-    }
-
-    function getLivingPlace() {
-        const { region, locality } = props;
-        let result = '';
-        if (region) {
-            result += region.name;
-        }
-        if (locality) {
-            result += `, ${locality.name}`;
-        }
-
-        return trimStart(result, ', ');
     }
 
     return (
@@ -51,7 +38,7 @@ const PersonalInfoBlock = props => {
                     </Row>
                     <Row>
                         <Col>
-                            <span className="person-card-label">Проживает:</span><span className="person-card-value">{getLivingPlace()}</span>
+                            <span className="person-card-label">Проживает:</span><span className="person-card-value">{props.region && props.region.name}</span>
                         </Col>
                     </Row>
                     <Row>

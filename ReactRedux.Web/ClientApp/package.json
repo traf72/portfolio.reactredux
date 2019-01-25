@@ -43,7 +43,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "https://localhost:44357",
+  "proxy": "http://localhost:8091",
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",

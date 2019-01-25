@@ -6,7 +6,7 @@ import RequestError from '../RequestError';
 import { getFullBirthDate } from '../utils';
 import { sex as sexEnum } from '../enums';
 import {
-    FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS, EDUCATIONAL_LEVELS, INDUSTRIES, WORK_AREAS,
+    FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS, EDUCATIONAL_LEVELS, INDUSTRIES, WORK_AREAS,
     MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS, SEX,
 } from './Catalog';
 
@@ -16,7 +16,7 @@ export const FETCH_START = `${appName}/${moduleName}/FETCH_START`;
 export const FETCH_SUCCESS = `${appName}/${moduleName}/FETCH_SUCCESS`;
 export const FETCH_FAILED = `${appName}/${moduleName}/FETCH_FAILED`;
 
-export const personalInfoBlockCatalogs = [FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS, SEX];
+export const personalInfoBlockCatalogs = [FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS, SEX];
 export const educationBlockCatalogs = [EDUCATIONAL_LEVELS];
 export const workInfoBlockCatalogs = [INDUSTRIES, WORK_AREAS, MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS];
 
@@ -119,7 +119,7 @@ export const selector = searchState => {
             fio: `${x.lastName} ${x.firstName} ${x.middleName}`,
             sex: sexEnum[x.sex],
             birthDate: x.birthDate && getFullBirthDate(new Date(x.birthDate)),
-            residence: `${x.region}, ${x.locality}`,
+            residence: x.region,
             phone: x.phone,
             email: x.email,
             educationLevel: x.educationLevel,

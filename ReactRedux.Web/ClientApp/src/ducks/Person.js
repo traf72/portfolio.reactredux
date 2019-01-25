@@ -5,7 +5,7 @@ import { person as personRoute } from '../routes';
 import { push } from 'connected-react-router';
 import { showErrorAlert } from './Alert';
 import {
-    FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS, EDUCATIONAL_LEVELS, INDUSTRIES, WORK_AREAS,
+    FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS, EDUCATIONAL_LEVELS, INDUSTRIES, WORK_AREAS,
     MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS, LANGUAGES, LANGUAGE_LEVELS, SOCIAL_NETWORKS,
     COUNTRIES, SEX, FAMILY_STATUS, fetchCatalog,
 } from './Catalog';
@@ -26,7 +26,7 @@ export const SAVE_FAILED = `${appName}/${moduleName}/SAVE_FAILED`;
 const defaultDocumentCode = '21'; // Паспорт
 const defaultSocialNetworks = ['facebook', 'vk', 'ok', 'twitter'];
 
-export const personalInfoBlockCatalogs = [FEDERAL_DISTRICTS, REGIONS, REGION_LOCALITIES, IDENTITY_DOCUMENTS, SEX];
+export const personalInfoBlockCatalogs = [FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS, SEX];
 export const educationBlockCatalogs = [EDUCATIONAL_LEVELS];
 export const workInfoBlockCatalogs = [INDUSTRIES, WORK_AREAS, MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS];
 export const languagesBlockCatalogs = [LANGUAGES, LANGUAGE_LEVELS];
@@ -181,13 +181,9 @@ export const fetchPersonSaga = function* (action) {
     try {
         const response = yield call(getPerson, id);
         const personData = response.data;
-        if (personData.regionId) {
-            yield put(fetchCatalog(REGION_LOCALITIES, { regionId: personData.regionId }));
-        }
-
         yield put(fetchSuccess(personData, new Date()));
     } catch (error) {
-        const reqError = new RequestError(error, 'При загрузке резервиста произошла ошибка');
+        const reqError = new RequestError(error, 'При загрузке сотрудника произошла ошибка');
         yield all([
             put(fetchFailed(id, reqError, new Date())),
             put(showErrorAlert(reqError.message))
@@ -218,7 +214,7 @@ export const savePersonSaga = function* (action) {
             yield put(push(personRoute.buildUrl({ id: savedPerson.id })));
         }
     } catch (error) {
-        const reqError = new RequestError(error, 'При сохранении резервиста произошла ошибка');
+        const reqError = new RequestError(error, 'При сохранении сотрудника произошла ошибка');
         if (!isPersonChanged(yield select())) {
             yield put(saveFailed(id, reqError, new Date()));
         }
@@ -317,7 +313,6 @@ export const personFullSelector = (state, id) => {
             birthDate: personalInfo.birthDate ? new Date(personalInfo.birthDate) : null,
             federalDistrict: getCatalogItem(FEDERAL_DISTRICTS, personalInfo.federalDistrictId),
             region: getCatalogItem(REGIONS, personalInfo.regionId),
-            locality: getCatalogItem(REGION_LOCALITIES, personalInfo.localityId),
             document: getCatalogItem(IDENTITY_DOCUMENTS, personalInfo.documentId),
             familyStatus: getCatalogItem(FAMILY_STATUS, personalInfo.familyStatus),
             childrenInfo: personalInfo.childrenInfo,

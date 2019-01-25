@@ -1,7 +1,6 @@
-﻿using ReactRedux.DAL.Entities.Catalogs;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReactRedux.DAL.Entities.Catalogs;
 using ReactRedux.Logic.Services;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,8 +99,7 @@ namespace ReactRedux.Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<object>> Regions()
         {
-            //return await _catalogService.GetCatalog<Reg>();
-            return null;
+            return await _catalogService.GetCatalog<Region>();
         }
     }
 }

@@ -25,9 +25,9 @@ export const isPathMatch = (path, route, options = { exact: true, strict: false 
 }
 
 export const dashboard = new Route('/', 'Главная');
-export const personNew = new Route('/person/new', 'Новый резервист');
-export const personEdit = new Route('/person/edit/:id(\\d+)', 'Редактировать резервиста');
-export const person = new Route('/person/:id(\\d+)', 'Карточка резервиста');
+export const personNew = new Route('/person/new', 'Новый сотрудник');
+export const personEdit = new Route('/person/edit/:id(\\d+)', 'Редактировать сотрудника');
+export const person = new Route('/person/:id(\\d+)', 'Карточка сотрудника');
 export const search = new Route('/search', 'Расширенный поиск');
 export const charts = new Route('/charts', 'Диаграммы');
 export const reports = new Route('/reports', 'Отчёты');
