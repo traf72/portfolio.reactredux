@@ -165,7 +165,7 @@ namespace ReactRedux.Web.Controllers
                             Id = Guid.Parse("5d2f364d-9940-4193-981d-057ecb0a4b8e"),
                             Name = "Csv документ.csv",
                             MimeType = "text/csv",
-                            Size = 0,
+                            Size = 3446,
                         },
                         new FileVm
                         {
@@ -173,13 +173,6 @@ namespace ReactRedux.Web.Controllers
                             Name = "Pdf документ.pdf",
                             MimeType = "application/pdf",
                             Size = 13969748,
-                        },
-                        new FileVm
-                        {
-                            Id = Guid.Parse("1dbb90f5-d7bb-47ad-9360-f33156aa61bc"),
-                            Name = "Видео.wmv",
-                            MimeType = "video/x-ms-wmv",
-                            Size = 948516,
                         },
                 },
             },
