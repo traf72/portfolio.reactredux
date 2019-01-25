@@ -59,80 +59,11 @@ const columns = [
 class Dashbord extends Component {
     componentDidMount() {
         this.props.search();
-
-        let script = document.getElementById('chartLib');
-        if (!script) {
-            script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js';
-            script.id = 'chartLib';
-            script.onload = script.onload = () => {
-                const script = document.createElement('script');
-                script.src = 'https://www.chartjs.org/samples/latest/utils.js';
-                script.onload = this.renderChart;
-                document.head.appendChild(script);
-            };
-            document.head.appendChild(script);
-        } else {
-            this.renderChart();
-        };
-    }
-
-    renderChart() {
-        const ctx = document.getElementById('myChart');
-        // eslint-disable-next-line no-unused-vars
-        const myChart = new window.Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [
-                    'Понедельник',
-                    'Вторник',
-                    'Среда',
-                    'Четверг',
-                    'Пятница',
-                    'Суббота',
-                    'Восресенье',
-                ],
-                datasets: [
-                    {
-                        data: [
-                            15339,
-                            21345,
-                            18483,
-                            24003,
-                            23489,
-                            24092,
-                            12034
-                        ],
-                        lineTension: 0,
-                        backgroundColor: 'transparent',
-                        borderColor: '#007bff',
-                        borderWidth: 4,
-                        pointBackgroundColor: '#007bff'
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: false
-                            }
-                        }
-                    ]
-                },
-                legend: {
-                    display: false
-                }
-            }
-        });
     }
 
     render() {
         return (
             <div>
-                <canvas className="chart my-4 w-100" id="myChart">
-                </canvas>
                 <h5>Недавно добавленные</h5>
                 <DataGrid
                     data={this.props.data}
