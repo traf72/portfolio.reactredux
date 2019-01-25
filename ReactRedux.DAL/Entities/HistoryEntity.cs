@@ -1,5 +1,4 @@
 ﻿using System;
-using ReactRedux.DAL.Entities;
 
 namespace ReactRedux.DAL.Entities
 {

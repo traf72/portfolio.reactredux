@@ -15,11 +15,6 @@ namespace ReactRedux.DAL
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite("Data Source=test.db");
-        //}
-
         public DbSet<Person> Persons { get; set; }
         public DbSet<FederalDistrict> FederalDistricts { get; set; }
         public DbSet<IdentityDocument> IdentityDocuments { get; set; }
@@ -121,8 +116,8 @@ namespace ReactRedux.DAL
             {
                 modelBuilder.Entity(entity, e =>
                 {
-                    e.Property(nameof(IHistoryEntity<object>.Created)).IsRequired().ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");
-                    e.Property(nameof(IHistoryEntity<object>.Author)).IsRequired().HasMaxLength(100).HasDefaultValueSql("SYSTEM_USER");
+                    e.Property(nameof(IHistoryEntity<object>.Created)).IsRequired().ValueGeneratedOnAdd().HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    e.Property(nameof(IHistoryEntity<object>.Author)).IsRequired().HasMaxLength(100);
                     e.Property(nameof(IHistoryEntity<object>.Modifier)).HasMaxLength(100);
                 });
             }
