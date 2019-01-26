@@ -16,19 +16,19 @@ const WorkBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div>
                     <Row form>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="currentCompany">Компания</Label>
                                 <Input bsSize="sm" id="currentCompany" value={props.currentCompany} onChange={e => handleStateChange({ currentCompany: e.target.value })} />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="currentPosition">Должность</Label>
                                 <Input bsSize="sm" id="currentPosition" value={props.currentPosition} onChange={e => handleStateChange({ currentPosition: e.target.value })} />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="industry">Отрасль</Label>
                                 <Select
@@ -42,7 +42,7 @@ const WorkBlock = props => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="workArea">Область деятельности</Label>
                                 <Select
@@ -58,7 +58,7 @@ const WorkBlock = props => {
                         </Col>
                     </Row>
                     <Row form>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="managementLevel">Уровень менеджмента</Label>
                                 <Select
@@ -72,7 +72,7 @@ const WorkBlock = props => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="managementExperience">Опыт управления</Label>
                                 <Select
@@ -86,7 +86,7 @@ const WorkBlock = props => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="employeesCount">Кол-во человек в подчинении</Label>
                                 <Select
@@ -100,7 +100,7 @@ const WorkBlock = props => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={6} md={3} xl={2}>
                             <FormGroup>
                                 <Label for="hireYear">Год трудоустройства</Label>
                                 <Input bsSize="sm" id="hireYear" value={props.hireYear} onChange={e => handleStateChange({ hireYear: e.target.value })} />

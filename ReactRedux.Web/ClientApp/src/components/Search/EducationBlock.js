@@ -16,7 +16,7 @@ const EducationBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div>
                     <Row form>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="educationLevel">Уровень</Label>
                                 <Select
@@ -30,19 +30,19 @@ const EducationBlock = props => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="university">ВУЗ</Label>
                                 <Input bsSize="sm" id="university" value={props.university} onChange={e => handleStateChange({ university: e.target.value })} />
                             </FormGroup>
                         </Col>
-                        <Col>
+                        <Col md={6} xl>
                             <FormGroup>
                                 <Label for="specialty">Специальность</Label>
                                 <Input bsSize="sm" id="specialty" value={props.specialty} onChange={e => handleStateChange({ specialty: e.target.value })} />
                             </FormGroup>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={6} md={3} xl={2}>
                             <FormGroup>
                                 <Label for="graduationYear">Год окончания</Label>
                                 <Input bsSize="sm" id="graduationYear" value={props.graduationYear} onChange={e => handleStateChange({ graduationYear: e.target.value })} />
