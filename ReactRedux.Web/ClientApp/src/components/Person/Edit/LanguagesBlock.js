@@ -42,7 +42,7 @@ const LanguagesBlock = props => {
         const langErrorKey = `knownLanguage_${key}`;
         return (
             <FormGroup row key={key}>
-                <Col xs={4}>
+                <Col xs={6} lg={5} xl={4}>
                     <Select
                         value={langInfo.language}
                         onChange={item => handleChange(key, { language: item })}
@@ -53,7 +53,7 @@ const LanguagesBlock = props => {
                         bsSize="sm"
                     />
                 </Col>
-                <Col xs={3}>
+                <Col xs={5} lg={4} xl={3}>
                     <Select
                         value={langInfo.languageLevel}
                         onChange={item => handleChange(key, { languageLevel: item })}
