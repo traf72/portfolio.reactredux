@@ -10,10 +10,12 @@ namespace ReactRedux.Web.Model
 
         public string MiddleName { get; set; }
 
-
+        [ConditionOperator(Operators.Equal)]
         public string Sex { get; set; }
 
-        public DateTime? BirthDate { get; set; }
+        public int? StartAge { get; set; }
+
+        public int? EndAge { get; set; }
 
         public string BirthPlace { get; set; }
 
@@ -75,11 +77,32 @@ namespace ReactRedux.Web.Model
     [AttributeUsage(AttributeTargets.Property)]
     public class InfoBlockAttribute : Attribute
     {
-        public string BlockName { get; set; }
-
         public InfoBlockAttribute(string blockName)
         {
             BlockName = blockName;
         }
+
+        public string BlockName { get; set; }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ConditionOperatorAttribute : Attribute
+    {
+        public ConditionOperatorAttribute(string opeartor)
+        {
+            Operator = opeartor;
+        }
+
+        public string Operator { get; set; }
+    }
+
+    public class Operators
+    {
+        public const string Equal = "==";
+        public const string NotEqual = "!=";
+        public const string GraterThan = ">";
+        public const string GraterOrEqual = ">=";
+        public const string LessThan = "<";
+        public const string LessOrEqual = "<=";
     }
 }

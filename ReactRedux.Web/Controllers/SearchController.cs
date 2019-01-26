@@ -1,8 +1,7 @@
-﻿using ReactRedux.DAL.Entities.Catalogs;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReactRedux.DAL.Entities.Catalogs;
 using ReactRedux.Logic.Services;
 using ReactRedux.Web.Model;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -31,9 +30,7 @@ namespace ReactRedux.Web.Controllers
                 query = query.Where(predicate.where, predicate.whereParams);
             }
 
-            var result = query
-                .OrderByDescending(p => p.Created)
-                .Select(p =>
+            var result = query.OrderByDescending(p => p.Created).Select(p =>
                 new PersonShortVm
                 {
                     Id = p.Id,
@@ -62,34 +59,37 @@ namespace ReactRedux.Web.Controllers
 
         private (string where, object[] whereParams) GetPredicate(FilterCriteria criteria)
         {
-            IList<string> where = new List<string>();
-            IList<object> parameters = new List<object>();
+            var where = new List<string>();
+            var parameters = new List<object>();
 
             var properties = criteria.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-            foreach (var prop in properties)
+            foreach (PropertyInfo prop in properties)
             {
-                var propValue = prop.GetValue(criteria);
-                if (propValue == null || string.IsNullOrWhiteSpace(propValue.ToString()))
+                object propValue = prop.GetValue(criteria);
+                if (string.IsNullOrWhiteSpace(propValue?.ToString()))
                 {
                     continue;
                 }
 
-                var attr = prop.GetCustomAttribute<InfoBlockAttribute>();
-                var fieldName = $"{(attr != null ? $"{attr.BlockName}." : string.Empty)}{prop.Name}";
+                int paramNum = parameters.Count;
 
-                if (prop.PropertyType == typeof(string) && prop.Name != nameof(PersonVm.Sex))
+                var blockAttr = prop.GetCustomAttribute<InfoBlockAttribute>();
+                string fieldName = $"{(blockAttr != null ? $"{blockAttr.BlockName}." : string.Empty)}{prop.Name}";
+
+                var operatorAttr = prop.GetCustomAttribute<ConditionOperatorAttribute>();
+                if (operatorAttr != null)
                 {
-                    where.Add($"it.{fieldName}.ToLower().Contains(@{parameters.Count})");
-                    parameters.Add(propValue.ToString().ToLower());
+                    where.Add($"it.{fieldName} {operatorAttr.Operator} @{paramNum}");
+                    parameters.Add(propValue);
                 }
-                else if (prop.PropertyType == typeof(DateTime))
+                else if (prop.PropertyType == typeof(string))
                 {
-                    where.Add($"it.{fieldName} == @{parameters.Count}");
-                    parameters.Add(((DateTime)propValue).Date);
+                    where.Add($"it.{fieldName}.ToLower().Contains(@{paramNum})");
+                    parameters.Add(propValue.ToString().ToLower());
                 }
                 else
                 {
-                    where.Add($"it.{fieldName} == @{parameters.Count}");
+                    where.Add($"it.{fieldName} == @{paramNum}");
                     parameters.Add(propValue);
                 }
             }
