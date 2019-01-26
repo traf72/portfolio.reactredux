@@ -18,7 +18,7 @@ PhotoImg.propTypes = {
 
 PhotoImg.defaultProps = {
     className: '',
-    alt: 'Фото',
+    alt: 'Р¤РѕС‚Рѕ',
 }
 
 export default PhotoImg;

@@ -59,7 +59,7 @@ class PersonalInfoBlock extends Component {
         return (
             <div className="person-card-personal-info-block person-card-section">
                 <Row form>
-                    <Col xs={12} sm={3} className="person-card-photo-col">
+                    <Col lg={2} xl={3} className="person-card-photo-col">
                         <PhotoUploader
                             photoId={this.props.photoId}
                             onPhotoChanged={this.onPhotoChanged}
@@ -71,12 +71,12 @@ class PersonalInfoBlock extends Component {
                             }}
                         />
                     </Col>
-                    <Col xs={12} sm={9}>
+                    <Col lg={10} xl={9}>
                         <Row form>
-                            <Col xs={12} lg={5}>
+                            <Col lg={5}>
                                 <FormGroup row>
-                                    <Label for="lastName" xs={3}>Фамилия*</Label>
-                                    <Col xs="8">
+                                    <Label for="lastName" sm={4} lg={3}>Фамилия*</Label>
+                                    <Col sm={8}>
                                         <Input bsSize="sm" id="lastName" value={this.props.lastName} onChange={e => handleStateChange({ lastName: e.target.value })}
                                             invalid={isInputInvalid('lastName', [requireValidator('Введите фамилию')])}
                                         />
@@ -84,8 +84,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="firstName" xs={3}>Имя*</Label>
-                                    <Col xs={8}>
+                                    <Label for="firstName" sm={4} lg={3}>Имя*</Label>
+                                    <Col sm={8}>
                                         <Input bsSize="sm" id="firstName" value={this.props.firstName} onChange={e => handleStateChange({ firstName: e.target.value })}
                                             invalid={isInputInvalid('firstName', [requireValidator('Введите имя')])}
                                         />
@@ -93,8 +93,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="middleName" xs={3}>Отчество*</Label>
-                                    <Col xs={8}>
+                                    <Label for="middleName" sm={4} lg={3}>Отчество*</Label>
+                                    <Col sm={8}>
                                         <Input bsSize="sm" id="middleName" value={this.props.middleName} onChange={e => handleStateChange({ middleName: e.target.value })}
                                             invalid={isInputInvalid('middleName', [requireValidator('Введите отчество')])}
                                         />
@@ -102,8 +102,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="sex" xs={3}>Пол*</Label>
-                                    <Col xs={8}>
+                                    <Label for="sex" sm={4} lg={3}>Пол*</Label>
+                                    <Col sm={5} lg={8}>
                                         <Select
                                             inputId="sex"
                                             value={this.props.selectedSex}
@@ -117,10 +117,10 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                             </Col>
-                            <Col xs={12} lg={7}>
+                            <Col lg={7}>
                                 <FormGroup row>
-                                    <Label for="birthDate" xs={4}>Дата рождения*</Label>
-                                    <Col xs={6}>
+                                    <Label for="birthDate" sm={4}>Дата рождения*</Label>
+                                    <Col sm={6}>
                                         <DatePicker
                                             id="birthDate"
                                             bsSize="sm"
@@ -132,8 +132,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="birthPlace" xs={4}>Место рождения*</Label>
-                                    <Col xs={6}>
+                                    <Label for="birthPlace" sm={4}>Место рождения*</Label>
+                                    <Col sm={8} lg={7}>
                                         <Input bsSize="sm" id="birthPlace" value={this.props.birthPlace} onChange={e => handleStateChange({ birthPlace: e.target.value })}
                                             invalid={isInputInvalid('birthPlace', [requireValidator('Введите место рождения')])}
                                         />
@@ -141,8 +141,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="email" xs={4}>Email*</Label>
-                                    <Col xs={6}>
+                                    <Label for="email" sm={4}>Email*</Label>
+                                    <Col sm={8} lg={7}>
                                         <Input type="email" bsSize="sm" id="email" value={this.props.email} onChange={e => handleStateChange({ email: e.target.value })}
                                             invalid={isInputInvalid('email', [requireValidator('Введите email'), emailValidator()])}
                                         />
@@ -150,8 +150,8 @@ class PersonalInfoBlock extends Component {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label for="phone" xs={4}>Телефон*</Label>
-                                    <Col xs={6}>
+                                    <Label for="phone" sm={4}>Телефон*</Label>
+                                    <Col sm={8} lg={7}>
                                         <InputMask mask={phoneMask} bsSize="sm" id="phone" value={this.props.phone} onChange={e => handleStateChange({ phone: e.target.value })}
                                             invalid={isInputInvalid('phone', [requireValidator('Введите телефон'), phoneValidator()])}
                                         />
@@ -163,8 +163,8 @@ class PersonalInfoBlock extends Component {
                     </Col>
                 </Row>
                 <FormGroup row>
-                    <Label for="federalDistrict" xs={2}>Федеральный округ*</Label>
-                    <Col xs={5}>
+                    <Label for="federalDistrict" sm={4} lg={3} xl={2}>Федеральный округ*</Label>
+                    <Col sm={8} lg={5}>
                         <Select
                             inputId="federalDistrict"
                             value={this.props.selectedDistrict}
@@ -177,8 +177,8 @@ class PersonalInfoBlock extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="region" xs={2}>Регион*</Label>
-                    <Col xs={5}>
+                    <Label for="region" sm={4} lg={3} xl={2}>Регион*</Label>
+                    <Col sm={8} lg={5}>
                         <Select
                             inputId="region"
                             value={this.props.selectedRegion}
@@ -192,8 +192,8 @@ class PersonalInfoBlock extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="documentType" xs={2}>Документ*</Label>
-                    <Col xs={4}>
+                    <Label for="documentType" sm={4} lg={3} xl={2}>Документ*</Label>
+                    <Col sm={6} lg={4}>
                         <Select
                             inputId="documentType"
                             value={this.props.selectedDocument}
@@ -207,8 +207,8 @@ class PersonalInfoBlock extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="documentNumber" xs={2}>Номер документа*</Label>
-                    <Col xs={2}>
+                    <Label for="documentNumber" sm={4} lg={3} xl={2}>Номер документа*</Label>
+                    <Col xs={6} sm={3} lg={2}>
                         <InputMask mask={this.getDocumentNumberFormat(this.props.selectedDocument)} value={this.props.documentNumber}
                             id="documentNumber" bsSize="sm" onChange={this.handleDocumentNumberChange}
                             invalid={isInputInvalid('documentNumber', [
