@@ -23,8 +23,8 @@ const ForeignerBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div className="person-card-section">
                     <FormGroup row>
-                        <Label for="selectedNationality" xs={2}>Гражданство</Label>
-                        <Col xs={5}>
+                        <Label for="selectedNationality" sm={2}>Гражданство</Label>
+                        <Col sm={10} lg={5}>
                             <Select
                                 inputId="selectedNationality"
                                 value={props.selectedNationality}
@@ -39,8 +39,8 @@ const ForeignerBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Col xs={2} />
-                        <Col xs={5}>
+                        <Col sm={2} />
+                        <Col sm={10} lg={5}>
                             <CustomInput type="checkbox" id="readyMoveToRussia" label="Готов к переезду в Россию" checked={props.readyMoveToRussia}
                                 onChange={e => handleStateChange({ readyMoveToRussia: e.target.checked })}
                             />

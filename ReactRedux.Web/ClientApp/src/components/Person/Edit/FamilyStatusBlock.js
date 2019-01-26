@@ -16,8 +16,8 @@ const FamilyStatusBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div className="person-card-section">
                     <FormGroup row>
-                        <Label for="selectedFamilyStatus" xs={2}>Статус</Label>
-                        <Col xs={4}>
+                        <Label for="selectedFamilyStatus" sm={2}>Статус</Label>
+                        <Col sm={8} lg={4}>
                             <Select
                                 inputId="selectedFamilyStatus"
                                 value={props.selectedFamilyStatus}
@@ -30,8 +30,8 @@ const FamilyStatusBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="childrenInfo" xs={2}>Дети</Label>
-                        <Col xs={4}>
+                        <Label for="childrenInfo" sm={2}>Дети</Label>
+                        <Col sm={8} lg={4}>
                             <Input bsSize="sm" id="childrenInfo" value={props.childrenInfo} onChange={e => handleStateChange({ childrenInfo: e.target.value })} />
                         </Col>
                     </FormGroup>
