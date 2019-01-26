@@ -19,8 +19,8 @@ const WorkBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div className="person-card-section">
                     <FormGroup row>
-                        <Label for="currentCompany" xs={3}>Компания*</Label>
-                        <Col xs={5}>
+                        <Label for="currentCompany" xs={12} sm={3}>Компания*</Label>
+                        <Col xs={12} sm={6} xl={5}>
                             <Input bsSize="sm" id="currentCompany" value={props.currentCompany} onChange={e => handleStateChange({ currentCompany: e.target.value })}
                                 invalid={isInputInvalid('currentCompany', [requireValidator('Введите компанию')])}
                             />
@@ -28,8 +28,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="currentPosition" xs={3}>Должность*</Label>
-                        <Col xs={5}>
+                        <Label for="currentPosition" xs={12} sm={3}>Должность*</Label>
+                        <Col xs={12} sm={6} xl={5}>
                             <Input bsSize="sm" id="currentPosition" value={props.currentPosition} onChange={e => handleStateChange({ currentPosition: e.target.value })}
                                 invalid={isInputInvalid('currentPosition', [requireValidator('Введите должность')])}
                             />
@@ -37,8 +37,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="industry" xs={3}>Отрасль*</Label>
-                        <Col xs={5}>
+                        <Label for="industry" xs={12} sm={3}>Отрасль*</Label>
+                        <Col xs={12} sm={6} xl={5}>
                             <Select
                                 inputId="industry"
                                 value={props.selectedIndustry}
@@ -52,8 +52,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="workArea" xs={3}>Область деятельности*</Label>
-                        <Col xs={5}>
+                        <Label for="workArea" xs={12} sm={3}>Область деятельности*</Label>
+                        <Col xs={12} sm={6} xl={5}>
                             <Select
                                 inputId="workArea"
                                 value={props.selectedWorkArea}
@@ -67,8 +67,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="managementLevel" xs={3}>Уровень менеджмента*</Label>
-                        <Col xs={5}>
+                        <Label for="managementLevel" xs={12} sm={3}>Уровень менеджмента*</Label>
+                        <Col xs={12} sm={6} xl={5}>
                             <Select
                                 inputId="managementLevel"
                                 value={props.selectedManagementLevel}
@@ -82,8 +82,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="managementExperience" xs={3}>Опыт управления*</Label>
-                        <Col xs={3}>
+                        <Label for="managementExperience" xs={12} sm={3}>Опыт управления*</Label>
+                        <Col xs={12} sm={6} xl={3}>
                             <Select
                                 inputId="managementExperience"
                                 value={props.selectedExperience}
@@ -97,8 +97,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="employeesCount" xs={3}>Кол-во человек в подчинении*</Label>
-                        <Col xs={3}>
+                        <Label for="employeesCount" xs={12} sm={3}>Кол-во человек в подчинении*</Label>
+                        <Col xs={12} sm={6} xl={3}>
                             <Select
                                 inputId="employeesCount"
                                 value={props.selectedEmployeesNumber}
@@ -112,8 +112,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="hireYear" xs={3}>Год трудоустройства</Label>
-                        <Col xs={2}>
+                        <Label for="hireYear" xs={12} sm={3}>Год трудоустройства</Label>
+                        <Col xs={6} sm={3} lg={2}>
                             <InputMask mask={yearMask} maskChar={null} bsSize="sm" id="hireYear" value={props.hireYear}
                                 onChange={e => handleStateChange({ hireYear: e.target.value })}
                                 invalid={isInputInvalid('hireYear', [yearValidator()])}
@@ -122,8 +122,8 @@ const WorkBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="previousWorkPlaces" xs={3}>Предыдущие места работы</Label>
-                        <Col xs={5}>
+                        <Label for="previousWorkPlaces" xs={12} sm={3}>Предыдущие места работы</Label>
+                        <Col xs={12} sm={5}>
                             <Input type="textarea" bsSize="sm" id="previousWorkPlaces" value={props.previousWorkPlaces}
                                 onChange={e => handleStateChange({ previousWorkPlaces: e.target.value })}
                             />
