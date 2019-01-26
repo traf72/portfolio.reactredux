@@ -19,8 +19,8 @@ const EducationBlock = props => {
             <Collapse isOpen={props.isOpen}>
                 <div className="person-card-section">
                     <FormGroup row>
-                        <Label for="educationLevel" xs={2}>Уровень*</Label>
-                        <Col xs={5}>
+                        <Label for="educationLevel" sm={3} xl={2}>Уровень*</Label>
+                        <Col sm={6} xl={5}>
                             <Select
                                 inputId="educationLevel"
                                 value={props.selectedEducationLevel}
@@ -34,8 +34,8 @@ const EducationBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="university" xs={2}>ВУЗ*</Label>
-                        <Col xs={5}>
+                        <Label for="university" sm={3} xl={2}>ВУЗ*</Label>
+                        <Col sm={6} xl={5}>
                             <Input bsSize="sm" id="university" value={props.university} onChange={e => handleStateChange({ university: e.target.value })}
                                 invalid={isInputInvalid('university', [requireValidator('Введите ВУЗ')])}
                             />
@@ -43,8 +43,8 @@ const EducationBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="specialty" xs={2}>Специальность*</Label>
-                        <Col xs={5}>
+                        <Label for="specialty" sm={3} xl={2}>Специальность*</Label>
+                        <Col sm={6} xl={5}>
                             <Input bsSize="sm" id="specialty" value={props.specialty} onChange={e => handleStateChange({ specialty: e.target.value })}
                                 invalid={isInputInvalid('specialty', [requireValidator('Введите специальность')])}
                             />
@@ -52,8 +52,8 @@ const EducationBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="graduationYear" xs={2}>Год окончания</Label>
-                        <Col xs={2}>
+                        <Label for="graduationYear" sm={3} xl={2}>Год окончания</Label>
+                        <Col xs={6} sm={3} lg={2}>
                             <InputMask mask={yearMask} maskChar={null} bsSize="sm" id="graduationYear" value={props.graduationYear}
                                 onChange={e => handleStateChange({ graduationYear: e.target.value })}
                                 invalid={isInputInvalid('graduationYear', [yearValidator()])}
@@ -62,8 +62,8 @@ const EducationBlock = props => {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="educationExtraInfo" xs={2}>Дополнительная информация</Label>
-                        <Col xs={5}>
+                        <Label for="educationExtraInfo" sm={3} xl={2}>Дополнительная информация</Label>
+                        <Col sm={6} xl={5}>
                             <Input type="textarea" bsSize="sm" id="educationExtraInfo" value={props.educationExtraInfo}
                                 onChange={e => handleStateChange({ educationExtraInfo: e.target.value })}
                             />
