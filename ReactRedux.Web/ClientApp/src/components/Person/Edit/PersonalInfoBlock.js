@@ -59,7 +59,7 @@ class PersonalInfoBlock extends Component {
         return (
             <div className="person-card-personal-info-block person-card-section">
                 <Row form>
-                    <Col lg={2} xl={3} className="person-card-photo-col">
+                    <Col sm={5} md={4} lg={3} className="person-card-photo-col">
                         <PhotoUploader
                             photoId={this.props.photoId}
                             onPhotoChanged={this.onPhotoChanged}
@@ -71,7 +71,7 @@ class PersonalInfoBlock extends Component {
                             }}
                         />
                     </Col>
-                    <Col lg={10} xl={9}>
+                    <Col className="ml-sm-n4 ml-md-3 ml-lg-n1 ml-xl-n5">
                         <Row form>
                             <Col lg={5}>
                                 <FormGroup row>
@@ -103,7 +103,7 @@ class PersonalInfoBlock extends Component {
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label for="sex" sm={4} lg={3}>Пол*</Label>
-                                    <Col sm={5} lg={8}>
+                                    <Col sm={8} lg={8}>
                                         <Select
                                             inputId="sex"
                                             value={this.props.selectedSex}

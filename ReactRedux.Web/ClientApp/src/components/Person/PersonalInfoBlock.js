@@ -12,10 +12,10 @@ const PersonalInfoBlock = props => {
     return (
         <div className="person-card-personal-info-block person-card-section">
             <Row>
-                <Col xs={3} className="person-card-photo-col">
+                <Col sm={5} md={4} xl={3} className="person-card-photo-col">
                     <PhotoUploader photoId={props.photoId} readOnly />
                 </Col>
-                <Col xs={9}>
+                <Col className="ml-sm-n4 ml-md-2 ml-lg-n5">
                     <Row>
                         <Col className="person-card-person-name">
                             {getFullName()}
