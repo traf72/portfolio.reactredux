@@ -17,6 +17,22 @@ namespace ReactRedux.Web.Model
 
         public DateTime BirthDate { get; set; }
 
+        // https://stackoverflow.com/questions/9/how-do-i-calculate-someones-age-in-c#answer-1404
+        public int Age
+        {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - BirthDate.Year;
+                if (BirthDate > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
+
         public string BirthPlace { get; set; }
 
         public string Email { get; set; }

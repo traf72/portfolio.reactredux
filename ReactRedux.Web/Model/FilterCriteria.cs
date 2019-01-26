@@ -13,8 +13,12 @@ namespace ReactRedux.Web.Model
         [ConditionOperator(Operators.Equal)]
         public string Sex { get; set; }
 
+        [ConditionFieldAttribute(nameof(PersonVm.Age))]
+        [ConditionOperator(Operators.GraterOrEqual)]
         public int? StartAge { get; set; }
 
+        [ConditionFieldAttribute(nameof(PersonVm.Age))]
+        [ConditionOperator(Operators.LessOrEqual)]
         public int? EndAge { get; set; }
 
         public string BirthPlace { get; set; }
@@ -83,6 +87,17 @@ namespace ReactRedux.Web.Model
         }
 
         public string BlockName { get; set; }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ConditionFieldAttribute : Attribute
+    {
+        public ConditionFieldAttribute(string field)
+        {
+            Field = field;
+        }
+
+        public string Field { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]

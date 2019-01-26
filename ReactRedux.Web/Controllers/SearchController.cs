@@ -74,22 +74,27 @@ namespace ReactRedux.Web.Controllers
                 int paramNum = parameters.Count;
 
                 var blockAttr = prop.GetCustomAttribute<InfoBlockAttribute>();
-                string fieldName = $"{(blockAttr != null ? $"{blockAttr.BlockName}." : string.Empty)}{prop.Name}";
+                string blockName = blockAttr != null ? $"{blockAttr.BlockName}." : string.Empty;
+
+                var fiedlAttr = prop.GetCustomAttribute<ConditionFieldAttribute>();
+                string fieldName = fiedlAttr?.Field ?? prop.Name;
+
+                string fullFieldName = $"{blockName}{fieldName}";
 
                 var operatorAttr = prop.GetCustomAttribute<ConditionOperatorAttribute>();
                 if (operatorAttr != null)
                 {
-                    where.Add($"it.{fieldName} {operatorAttr.Operator} @{paramNum}");
+                    where.Add($"it.{fullFieldName} {operatorAttr.Operator} @{paramNum}");
                     parameters.Add(propValue);
                 }
                 else if (prop.PropertyType == typeof(string))
                 {
-                    where.Add($"it.{fieldName}.ToLower().Contains(@{paramNum})");
+                    where.Add($"it.{fullFieldName}.ToLower().Contains(@{paramNum})");
                     parameters.Add(propValue.ToString().ToLower());
                 }
                 else
                 {
-                    where.Add($"it.{fieldName} == @{paramNum}");
+                    where.Add($"it.{fullFieldName} == @{paramNum}");
                     parameters.Add(propValue);
                 }
             }
