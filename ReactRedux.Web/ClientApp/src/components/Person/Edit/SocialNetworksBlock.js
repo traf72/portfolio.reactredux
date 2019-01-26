@@ -46,7 +46,7 @@ const SocialNetworksBlock = props => {
         return (
             <FormGroup key={network.code} row>
                 <Label for={network.code} xs={1} className="social-icon-label" title={network.name}><FontAwesomeIcon icon={['fab', network.icon]} color={network.iconColor} fixedWidth /></Label>
-                <Col xs={4}>
+                <Col xs={10} sm={8} lg={4}>
                     <Input bsSize="sm" id={network.code} value={value} onChange={e => handleChange(e, networkInfo)} />
                 </Col>
                 <Col xs={1} className="remove-item-col">
@@ -60,7 +60,7 @@ const SocialNetworksBlock = props => {
         return (
             <FormGroup row>
                 <Label xs={1} className="social-icon-label"><FontAwesomeIcon icon="plus-circle" fixedWidth className="invisible" /></Label>
-                <Col xs={4}>
+                <Col xs={10} sm={8} lg={4}>
                     <Select
                         value={null}
                         onChange={addNetwork}
