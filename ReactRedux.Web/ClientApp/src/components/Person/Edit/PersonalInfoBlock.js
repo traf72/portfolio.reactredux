@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PhotoUploader from '../../common/PhotoUploader';
 import { Row, Col, FormGroup, Label, Input } from 'reactstrap';
-import Select, { VirtualizedSelect } from '../../common/Select';
+import Select from '../../common/Select';
 import DatePicker from '../../common/DatePicker';
 import InputMask from '../../common/InputMask';
 import ValidationMessage from '../../common/ValidationMessage';

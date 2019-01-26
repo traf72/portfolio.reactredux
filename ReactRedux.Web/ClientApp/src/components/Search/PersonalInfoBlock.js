@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, FormGroup, Label, Input, Collapse } from 'reactstrap';
 import Select from '../common/Select';
-import DatePicker from '../common/DatePicker';
 import CollapsableHeader from '../common/CollapsableHeader';
 import ToggleOpen from '../../decorators/ToggleOpen';
 import { SEX, FEDERAL_DISTRICTS, REGIONS, IDENTITY_DOCUMENTS } from '../../ducks/Catalog';

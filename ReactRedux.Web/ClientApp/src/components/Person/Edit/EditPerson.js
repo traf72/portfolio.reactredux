@@ -100,7 +100,6 @@ class EditPerson extends Component {
                 },
                 filesDirectoryId,
             },
-            isForeignerBlockOpen: !!(personalInfo.nationality || personalInfo.readyMoveToRussia),
         }
     }
 
@@ -292,7 +291,6 @@ class EditPerson extends Component {
                         getInputErrorMessage={this.getInputErrorMessage}
                         {...this.getCatalogs(foreignerBlockCatalogs)}
                         {...this.state.person.foreignerInfo}
-                        defaultOpen={this.state.isForeignerBlockOpen}
                     />
                     <FilesBlock
                         handleStateChange={this.handleStateChange.bind(null, 'filesInfo')}
