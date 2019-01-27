@@ -1,12 +1,12 @@
 import reducer, {
     NEW_PERSON, FETCH_REQUEST, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, SAVE_REQUEST,
     SAVE_START, SAVE_SUCCESS, SAVE_FAILED, allActions as actions, fetchPersonCatalogsSaga,
-    fetchPersonSaga, savePersonSaga, allPersonCatalogs
+    fetchPersonSaga, allPersonCatalogs
 } from './Person';
 import { fetchCatalog } from './Catalog';
 import { showErrorAlert } from './Alert';
-import { put, call, select, all } from 'redux-saga/effects';
-import { getPerson, savePerson } from '../api';
+import { put, call, all } from 'redux-saga/effects';
+import { getPerson } from '../api';
 import { now } from '../utils';
 import deepFreeze from 'deep-freeze';
 import RequestError from '../RequestError';
