@@ -9,6 +9,7 @@ import {
     MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS, LANGUAGES, LANGUAGE_LEVELS, SOCIAL_NETWORKS,
     COUNTRIES, SEX, FAMILY_STATUS, fetchCatalog,
 } from './Catalog';
+import { now } from '../utils';
 import uuid from 'uuid/v1';
 import RequestError from '../RequestError';
 
@@ -181,11 +182,11 @@ export const fetchPersonSaga = function* (action) {
     try {
         const response = yield call(getPerson, id);
         const personData = response.data;
-        yield put(fetchSuccess(personData, new Date()));
+        yield put(fetchSuccess(personData, now()));
     } catch (error) {
         const reqError = new RequestError(error, 'При загрузке сотрудника произошла ошибка');
         yield all([
-            put(fetchFailed(id, reqError, new Date())),
+            put(fetchFailed(id, reqError, now())),
             put(showErrorAlert(reqError.message))
         ]);
     }
@@ -207,7 +208,7 @@ export const savePersonSaga = function* (action) {
         const state = yield select();
 
         if (!isPersonChanged(state)) {
-            yield put(saveSuccess(savedPerson, new Date()));
+            yield put(saveSuccess(savedPerson, now()));
         }
 
         if (!isLocationChanged(state)) {
@@ -216,7 +217,7 @@ export const savePersonSaga = function* (action) {
     } catch (error) {
         const reqError = new RequestError(error, 'При сохранении сотрудника произошла ошибка');
         if (!isPersonChanged(yield select())) {
-            yield put(saveFailed(id, reqError, new Date()));
+            yield put(saveFailed(id, reqError, now()));
         }
         yield put(showErrorAlert(reqError.message));
     }
@@ -231,7 +232,7 @@ export const saga = function* () {
 }
 
 const isPersonActual = person => {
-    return person.loadComplete && !person.error && (Date.now() - person.loadTime) / 1000 < cacheTimeoutInSeconds;
+    return person.loadComplete && !person.error && (now().getTime() - person.loadTime) / 1000 < cacheTimeoutInSeconds;
 }
 
 const isCatalogsLoaded = allCatalogs => {

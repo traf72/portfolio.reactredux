@@ -124,3 +124,7 @@ export const getFullBirthDate = birthDate => {
 
     return `${birthDate.toLocaleDateString()} (${declineAge(getAge(birthDate))})`;
 }
+
+export const now = () => {
+    return new Date();
+}

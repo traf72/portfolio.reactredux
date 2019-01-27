@@ -1,6 +1,17 @@
-import reducer, { NEW_PERSON, FETCH_REQUEST, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, SAVE_REQUEST, SAVE_START, SAVE_SUCCESS, SAVE_FAILED, allActions as actions } from './Person';
+import reducer, {
+    NEW_PERSON, FETCH_REQUEST, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, SAVE_REQUEST,
+    SAVE_START, SAVE_SUCCESS, SAVE_FAILED, allActions as actions, fetchPersonCatalogsSaga,
+    fetchPersonSaga, savePersonSaga, allPersonCatalogs
+} from './Person';
+import { fetchCatalog } from './Catalog';
+import { showErrorAlert } from './Alert';
+import { put, call, select, all } from 'redux-saga/effects';
+import { getPerson, savePerson } from '../api';
+import { now } from '../utils';
 import deepFreeze from 'deep-freeze';
 import RequestError from '../RequestError';
+
+jest.mock('../utils');
 
 const error = new RequestError(new Error('Bad request'), 'Request error');
 const loadTime = new Date();
@@ -165,6 +176,60 @@ describe('actions', () => {
             type: SAVE_FAILED,
             payload: { id: 10, loadTime },
             error,
+        });
+    });
+});
+
+describe('sagas', () => {
+    describe('fetchPersonCatalogsSaga', () => {
+        it('should fetch all person catalogs', () => {
+            const gen = fetchPersonCatalogsSaga();
+
+            expect(gen.next()).toEqual({
+                done: false,
+                value: all(allPersonCatalogs.map(c => put(fetchCatalog(c))))
+            });
+
+            expect(gen.next()).toEqual({ done: true });
+        });
+    });
+
+    describe('fetchPersonSaga', () => {
+        now.mockResolvedValue(new Date());
+        const personId = 1;
+        const action = actions.fetchPerson(personId);
+
+        it(`should send success if no error occured`, () => {
+            const gen = fetchPersonSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: call(fetchPersonCatalogsSaga) });
+            expect(gen.next()).toEqual({ done: false, value: put(actions.fetchStart(personId)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getPerson, personId) });
+
+            const fakeResponse = { data: { Name: 'test' } }
+
+            expect(gen.next(fakeResponse)).toEqual({ done: false, value: put(actions.fetchSuccess(fakeResponse.data, now())) });
+            expect(gen.next()).toEqual({ done: true });
+        });
+
+        it(`should send failed if error occured`, () => {
+            const gen = fetchPersonSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: call(fetchPersonCatalogsSaga) });
+            expect(gen.next()).toEqual({ done: false, value: put(actions.fetchStart(personId)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getPerson, personId) });
+
+            const reqErr = new RequestError(error, `При загрузке сотрудника произошла ошибка`);
+
+            expect(gen.throw(error)).toEqual({
+                done: false,
+                value: all([
+                    put(actions.fetchFailed(personId, reqErr, now())),
+                    put(showErrorAlert(reqErr.message))
+                ])
+            });
+
+            expect(gen.next()).toEqual({ done: true });
         });
     });
 });
