@@ -1,5 +1,5 @@
 import { appName } from '../constants';
-import { take, race, put, call, delay } from 'redux-saga/effects'
+import { take, race, put, call, delay } from 'redux-saga/effects';
 
 const moduleName = 'alert';
 export const SHOW_ALERT = `${appName}/${moduleName}/SHOW_ALERT`;

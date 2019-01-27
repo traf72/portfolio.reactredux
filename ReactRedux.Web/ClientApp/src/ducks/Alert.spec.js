@@ -1,4 +1,8 @@
-import reducer, { SHOW_ALERT, CLOSE_ALERT, CLOSE_BY_TIMEOUT, allActions as actions } from './Alert';
+import reducer, {
+    SHOW_ALERT, CLOSE_ALERT, CLOSE_BY_TIMEOUT, allActions as actions,
+    watchCloseByTimeoutSaga, closeByTimeoutSaga,
+} from './Alert';
+import { put, delay, take, race, call } from 'redux-saga/effects';
 import deepFreeze from 'deep-freeze';
 
 describe('reducer', () => {
@@ -128,5 +132,34 @@ describe('actions', () => {
             type: CLOSE_BY_TIMEOUT,
             payload: { timeout: 4000 },
         });
+    });
+});
+
+describe('sagas', () => {
+    const timeout = 3000;
+
+    it(`should close alert after timeout`, () => {
+        const gen = closeByTimeoutSaga(timeout);
+
+        expect(gen.next()).toEqual({ done: false, value: delay(timeout) });
+        expect(gen.next()).toEqual({ done: false, value: put(actions.closeAlert()) });
+        expect(gen.next()).toEqual({ done: true });
+    });
+
+    it(`should watch closeByTimeout action`, () => {
+        const gen = watchCloseByTimeoutSaga();
+
+        expect(gen.next()).toEqual({ done: false, value: take(CLOSE_BY_TIMEOUT) });
+
+        const action = actions.closeByTimeout(timeout);
+        expect(gen.next(action)).toEqual({
+            done: false,
+            value: race([
+                call(closeByTimeoutSaga, action.payload.timeout),
+                take([SHOW_ALERT, CLOSE_ALERT])
+            ])
+        });
+
+        expect(gen.next()).toEqual({ done: false, value: take(CLOSE_BY_TIMEOUT) });
     });
 });
