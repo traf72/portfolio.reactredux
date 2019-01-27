@@ -5,6 +5,7 @@
 * React
 * Redux
 * Redux-saga
+* [Redux-ducks](https://github.com/erikras/ducks-modular-redux)
 * Bootstrap 4
 
 You can simply run this project from Visual Studio 2017 (you must have the [.NET Core SDK](https://dotnet.microsoft.com/download) installed).
