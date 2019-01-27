@@ -1,4 +1,10 @@
-import reducer, { SEARCH, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, allActions as actions } from './Search';
+import reducer, {
+    SEARCH, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, allActions as actions,
+    searchSaga,
+} from './Search';
+import { showErrorAlert } from './Alert';
+import { put, call, all } from 'redux-saga/effects';
+import { searchForPersons } from '../api';
 import deepFreeze from 'deep-freeze';
 import RequestError from '../RequestError';
 
@@ -62,7 +68,7 @@ describe('reducer', () => {
 
 describe('actions', () => {
     it('should create search action', () => {
-        const criteria = { name: 'Ivan'};
+        const criteria = { name: 'Ivan' };
 
         expect(actions.search(criteria)).toEqual({
             type: SEARCH,
@@ -87,6 +93,44 @@ describe('actions', () => {
         expect(actions.fetchFailed(error)).toEqual({
             type: FETCH_FAILED,
             error,
+        });
+    });
+});
+
+describe('sagas', () => {
+    describe('searchSaga', () => {
+        const criteria = { id: 2 };
+        const action = actions.search(criteria);
+
+        it(`should send success if no error occured`, () => {
+            const gen = searchSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: put(actions.fetchStart()) });
+            expect(gen.next()).toEqual({ done: false, value: call(searchForPersons, criteria) });
+
+            const fakeResponse = { data: { Name: 'test' } }
+
+            expect(gen.next(fakeResponse)).toEqual({ done: false, value: put(actions.fetchSuccess(fakeResponse.data)) });
+            expect(gen.next()).toEqual({ done: true });
+        });
+
+        it(`should send failed if error occured`, () => {
+            const gen = searchSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: put(actions.fetchStart()) });
+            expect(gen.next()).toEqual({ done: false, value: call(searchForPersons, criteria) });
+
+            const reqErr = new RequestError(error, `При поиске произошла ошибка`);
+
+            expect(gen.throw(error)).toEqual({
+                done: false,
+                value: all([
+                    put(actions.fetchFailed(reqErr)),
+                    put(showErrorAlert(reqErr.message))
+                ])
+            });
+
+            expect(gen.next()).toEqual({ done: true });
         });
     });
 });
