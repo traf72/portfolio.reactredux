@@ -1,4 +1,10 @@
-import reducer, { FETCH_REQUEST, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, FEDERAL_DISTRICTS, IDENTITY_DOCUMENTS, allActions as actions } from './Catalog';
+import reducer, {
+    FETCH_REQUEST, FETCH_START, FETCH_SUCCESS, FETCH_FAILED, FEDERAL_DISTRICTS,
+    IDENTITY_DOCUMENTS, allActions as actions, fetchCatalogSaga
+} from './Catalog';
+import { showErrorAlert } from './Alert';
+import { put, call, select, all } from 'redux-saga/effects';
+import { getCatalog } from '../api';
 import { indexArray } from '../utils';
 import deepFreeze from 'deep-freeze';
 import RequestError from '../RequestError';
@@ -99,6 +105,169 @@ describe('actions', () => {
             type: FETCH_FAILED,
             payload: { catalogName: FEDERAL_DISTRICTS, params },
             error,
+        });
+    });
+});
+
+describe('sagas', () => {
+    describe('fetchCatalogSaga', () => {
+        const action = actions.fetchCatalog(FEDERAL_DISTRICTS, params);
+
+        it(`should return if catalog is loading`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { loading: true, params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: true });
+        });
+
+        it(`should return if catalog is loaded without error`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { loadComplete: true, params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: true });
+        });
+
+        it(`should continue if catalog is loaded with error`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { loadComplete: true, params, error: 'error' }
+                }
+            }
+
+            expect(gen.next(state).done).toBe(false);
+        });
+
+        it(`should continue if params are different`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { params: { id: 6 } }
+                }
+            }
+
+            expect(gen.next(state).done).toBe(false);
+        });
+
+        it(`should send success if request is actual`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: false, value: put(actions.fetchStart(FEDERAL_DISTRICTS, params)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getCatalog, FEDERAL_DISTRICTS, params) });
+
+            const fakeResponse = { data: { Name: 'test' } };
+
+            expect(gen.next(fakeResponse)).toEqual({ done: false, value: select() });
+            expect(gen.next(state)).toEqual({ done: false, value: put(actions.fetchSuccess(FEDERAL_DISTRICTS, fakeResponse.data, params)) });
+            expect(gen.next()).toEqual({ done: true });
+        });
+
+        it(`should return if request is not actual`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: false, value: put(actions.fetchStart(FEDERAL_DISTRICTS, params)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getCatalog, FEDERAL_DISTRICTS, params) });
+
+            const fakeResponse = { data: { Name: 'test' } };
+
+            expect(gen.next(fakeResponse)).toEqual({ done: false, value: select() });
+
+            const newState = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { id: 2 }
+                }
+            };
+
+            expect(gen.next(newState)).toEqual({ done: true });
+        });
+
+        it(`should send failed on error if request is actual`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: false, value: put(actions.fetchStart(FEDERAL_DISTRICTS, params)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getCatalog, FEDERAL_DISTRICTS, params) });
+
+            expect(gen.throw(error)).toEqual({ done: false, value: select() });
+
+            const reqErr = new RequestError(error, `При загрузке справочника "${FEDERAL_DISTRICTS}" произошла ошибка`);
+            expect(gen.next(state)).toEqual({
+                done: false,
+                value: all([
+                    put(actions.fetchFailed(FEDERAL_DISTRICTS, reqErr, params)),
+                    put(showErrorAlert(reqErr.message))
+                ])
+            });
+
+            expect(gen.next()).toEqual({ done: true });
+        });
+
+        it(`should return on error if request is not actual`, () => {
+            const gen = fetchCatalogSaga(action);
+
+            expect(gen.next()).toEqual({ done: false, value: select() });
+
+            const state = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { params }
+                }
+            }
+
+            expect(gen.next(state)).toEqual({ done: false, value: put(actions.fetchStart(FEDERAL_DISTRICTS, params)) });
+            expect(gen.next()).toEqual({ done: false, value: call(getCatalog, FEDERAL_DISTRICTS, params) });
+
+            expect(gen.throw(error)).toEqual({ done: false, value: select() });
+
+            const newState = {
+                catalogs: {
+                    [FEDERAL_DISTRICTS]: { id: 2 }
+                }
+            };
+
+            expect(gen.next(newState)).toEqual({ done: true });
         });
     });
 });

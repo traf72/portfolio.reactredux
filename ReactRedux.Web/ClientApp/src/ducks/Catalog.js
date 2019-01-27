@@ -136,7 +136,7 @@ export const allActions = {
     fetchCatalog, fetchStart, fetchSuccess, fetchFailed
 };
 
-const fetchCatalogSaga = function* (action) {
+export const fetchCatalogSaga = function* (action) {
     const { catalogName, params } = action.payload;
     const state = yield select();
     const catalog = state.catalogs[catalogName];
