@@ -176,7 +176,7 @@ class Dropzone extends React.Component {
         const { readOnly } = this.props;
 
         return (
-            <ReactDropzone onDrop={this.onDrop} disableClick disabled={readOnly} accept={this.props.accept}>
+            <ReactDropzone onDrop={this.onDrop} disabled={readOnly} accept={this.props.accept}>
                 {({ getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, acceptedFiles, rejectedFiles, open }) => {
                     let dragClass = '';
                     if (!readOnly) {
@@ -196,7 +196,7 @@ class Dropzone extends React.Component {
                     return (
                         <div>
                             {!readOnly && <Button color="info" className="dropzone-add-btn mb-3 py-1" onClick={open}>Добавить файлы</Button>}
-                            <div {...getRootProps()} className={`${className} d-flex align-items-center w-100 ${dragClass}`}>
+                            <div {...getRootProps({ onClick: evt => evt.preventDefault() })} className={`${className} d-flex align-items-center w-100 ${dragClass}`}>
                                 <input {...getInputProps()} />
                                 {readOnly || this.props.files.length ? this.renderFiles() : this.renderDropzoneMessage(isDragAccept, isDragReject)}
                             </div>

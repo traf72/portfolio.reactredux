@@ -33,15 +33,5 @@ export const uploadFile = (file, fileId, extraParams = {}, onProgress = x => x) 
 }
 
 export const getDownloadFileUrl = fileId => {
-    return `${getHostIfNeed()}api/file/${fileId}`;
-}
-
-// Для ссылок WebPack proxy не работает
-const getHostIfNeed = () => {
-    let host = '';
-    if (process.env.NODE_ENV === 'development') {
-        host = 'http://localhost:8091/';
-    }
-
-    return host;
+    return `api/file/${fileId}`;
 }
