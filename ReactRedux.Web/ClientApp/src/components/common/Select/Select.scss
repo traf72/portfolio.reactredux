@@ -15,9 +15,9 @@
         min-height: calc(1.8125rem + 2px);
     }
 
-    .react-select__placeholder {
+    .react-select__placeholder, .react-select__single-value {
         font-size: .8rem;
-        top: 49%;
+        top: 43%;
     }
 
     .react-select__indicator svg {
