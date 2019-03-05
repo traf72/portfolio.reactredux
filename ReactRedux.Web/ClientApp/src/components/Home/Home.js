@@ -1,4 +1,4 @@
-import './Dashboard.scss';
+import './Home.scss';
 import React, { Component } from 'react';
 import { person as personRoute } from '../../routes';
 import DataGrid from '../common/DataGrid';

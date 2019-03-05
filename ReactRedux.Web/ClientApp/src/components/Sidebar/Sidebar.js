@@ -17,7 +17,7 @@ const Sidebar = ({ className, path }) => {
         <Navbar className={resultClass} color="light">
             <Nav className="flex-column">
                 <NavItem>
-                    {getNavLink(routes.dashboard.url, 'tachometer-alt', routes.dashboard.title)}
+                    {getNavLink(routes.home.url, 'home', routes.home.title)}
                 </NavItem>
                 <NavItem>
                     {getNavLink(routes.personNew.url, 'address-card', routes.personNew.title)}

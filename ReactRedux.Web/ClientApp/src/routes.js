@@ -24,7 +24,7 @@ export const isPathMatch = (path, route, options = { exact: true, strict: false 
     return matchPath(path, routeObj) != null;
 }
 
-export const dashboard = new Route('/', 'Главная');
+export const home = new Route('/', 'Главная');
 export const personNew = new Route('/person/new', 'Новый сотрудник');
 export const personEdit = new Route('/person/edit/:id(\\d+)', 'Редактировать сотрудника');
 export const person = new Route('/person/:id(\\d+)', 'Карточка сотрудника');
@@ -37,7 +37,7 @@ export const usersActions = new Route('/admin/users-actions', 'Действия 
 export const attributes = new Route('/admin/attributes', 'Настройка атрибутов');
 
 export const sidebarRoutes = {
-    dashboard,
+    home,
     personNew,
     search,
     charts,

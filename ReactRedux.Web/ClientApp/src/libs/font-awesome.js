@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faAddressCard, faTachometerAlt, faSearch, faChartPie, faFileAlt, faFileInvoice, faFileImport, faUser, faUsers, faTools,
+    faAddressCard, faHome, faSearch, faChartPie, faFileAlt, faFileInvoice, faFileImport, faUser, faUsers, faTools,
     faSignOutAlt, faCog, faPlusCircle, faAngleUp, faAngleDown, faFileWord, faFileExcel, faFilePowerpoint, faFilePdf, faFileCsv,
     faFileArchive, faFileImage, faFileAudio, faFileVideo, faEdit, faSave
 } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
-    faAddressCard, faTachometerAlt, faSearch, faChartPie, faFileR, faFileAlt, faFileInvoice, faFileImport, faUser, faUsers, faTools, faSignOutAlt, faCog,
+    faAddressCard, faHome, faSearch, faChartPie, faFileR, faFileAlt, faFileInvoice, faFileImport, faUser, faUsers, faTools, faSignOutAlt, faCog,
     faPlusCircle, faAngleUp, faAngleDown, faFacebook, faVk, faOdnoklassniki, faTwitter, faInstagram, faWhatsapp, faViber, faSkype, faTelegram, faYoutube,
     faGooglePlus, faTumblr, faPinterest, faFileWord, faFileExcel, faFilePowerpoint, faFilePdf, faFileCsv,
     faFileArchive, faFileImage, faFileAudio, faFileVideo, faTimesCircleR, faEdit, faSave

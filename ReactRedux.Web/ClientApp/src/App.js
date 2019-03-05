@@ -3,13 +3,13 @@ import { Route, Switch } from 'react-router';
 import Layout from './components/Layout';
 import PersonRoutes from './components/Person/PersonRoutes';
 import Search from './components/Search';
-import Dashboard from './components/Dashboard';
-import { search, dashboard } from './routes';
+import Home from './components/Home';
+import { search, home } from './routes';
 
 export default () => (
     <Layout>
         <Switch>
-            <Route path={dashboard.url} component={Dashboard} exact />
+            <Route path={home.url} component={Home} exact />
             <Route path="/person" component={PersonRoutes} />
             <Route path={search.url} component={Search} />
         </Switch>
