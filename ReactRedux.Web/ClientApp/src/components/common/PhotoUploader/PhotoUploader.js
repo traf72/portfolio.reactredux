@@ -40,6 +40,10 @@ class PhotoUploader extends Component {
 
     onPhotoChanged = async e => {
         const photo = e.target.files[0];
+        if (photo == null) {
+            return;
+        }
+
         if (!photo.type.startsWith('image/')) {
             this.props.onIncorrectType('Некорректный тип фото', photo.type);
             return;
