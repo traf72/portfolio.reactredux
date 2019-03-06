@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import NavMenu from '../NavMenu';
 import Sidebar from '../Sidebar';
 import Alert from '../common/Alert';
+import NotFound from '../NotFound';
 import { PageLoader } from '../common/Loader';
 import allRoutes, { isPathMatch } from '../../routes';
 
@@ -21,7 +22,7 @@ const Layout = ({ children, path }) => {
                     <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
                         {route && route.title && <h3 className="mt-3 mb-3">{route.title}</h3>}
                         <div>
-                            {children}
+                            {route ? children : <NotFound />}
                         </div>
                         <PageLoader />
                     </main>

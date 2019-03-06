@@ -41,8 +41,8 @@ class PersonalInfoBlock extends Component {
         }
     }
 
-    onPhotoUploadError = errorMsg => {
-        this.props.showErrorAlert(errorMsg);
+    onPhotoUploadError = error => {
+        this.props.showErrorAlert(error.message);
     }
 
     onPhotoIncorrectType = message => {

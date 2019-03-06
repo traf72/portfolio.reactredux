@@ -6,6 +6,7 @@ import { Input } from 'reactstrap';
 import ProgressBar from '../ProgressBar';
 import PhotoImg from '../PhotoImg';
 import { uploadFile, getDownloadFileUrl } from '../../../api';
+import RequestError from '../../../RequestError';
 
 class PhotoUploader extends Component {
     state = {
@@ -55,7 +56,7 @@ class PhotoUploader extends Component {
             this.setPhotoState(true, false, 100);
             this.props.onPhotoChanged(response.data);
         } catch (error) {
-            this.props.onUploadError('При загрузке фото произошла ошибка', error);
+            this.props.onUploadError(new RequestError(error, 'При загрузке фото произошла ошибка'));
             this.setPhotoState(true, false, 100);
         }
     }
