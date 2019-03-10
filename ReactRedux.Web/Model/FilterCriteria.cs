@@ -29,7 +29,7 @@ namespace ReactRedux.Web.Model
 
         public int? FederalDistrictId { get; set; }
 
-        public Guid? RegionId { get; set; }
+        public int? RegionId { get; set; }
 
         public int? DocumentId { get; set; }
 

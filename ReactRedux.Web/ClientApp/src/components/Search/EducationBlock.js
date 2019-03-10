@@ -1,9 +1,11 @@
 import React from 'react';
 import { Row, Col, FormGroup, Label, Input, Collapse } from 'reactstrap';
 import Select from '../common/Select';
+import InputMask from '../common/InputMask';
 import CollapsableHeader from '../common/CollapsableHeader';
 import ToggleOpen from '../../decorators/ToggleOpen';
 import { EDUCATIONAL_LEVELS } from '../../ducks/Catalog';
+import { yearMask } from '../../constants';
 
 const EducationBlock = props => {
     const { handleStateChange } = props;
@@ -45,7 +47,14 @@ const EducationBlock = props => {
                         <Col xs={6} md={3} xl={2}>
                             <FormGroup>
                                 <Label for="graduationYear">Год окончания</Label>
-                                <Input bsSize="sm" id="graduationYear" value={props.graduationYear} onChange={e => handleStateChange({ graduationYear: e.target.value })} />
+                                <InputMask
+                                    mask={yearMask}
+                                    maskChar={null}
+                                    bsSize="sm"
+                                    id="graduationYear"
+                                    value={props.graduationYear}
+                                    onChange={e => handleStateChange({ graduationYear: e.target.value })}
+                                />
                             </FormGroup>
                         </Col>
                     </Row>

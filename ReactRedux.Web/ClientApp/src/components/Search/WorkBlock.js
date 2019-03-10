@@ -1,8 +1,10 @@
 import React from 'react';
 import { Row, Col, FormGroup, Label, Input, Collapse } from 'reactstrap';
 import Select from '../common/Select';
+import InputMask from '../common/InputMask';
 import CollapsableHeader from '../common/CollapsableHeader';
 import ToggleOpen from '../../decorators/ToggleOpen';
+import { yearMask } from '../../constants';
 import { INDUSTRIES, WORK_AREAS, MANAGEMENT_LEVELS, MANAGEMENT_EXPERIENCES, EMPLOYEES_NUMBERS } from '../../ducks/Catalog';
 
 const WorkBlock = props => {
@@ -103,7 +105,14 @@ const WorkBlock = props => {
                         <Col xs={6} md={3} xl={2}>
                             <FormGroup>
                                 <Label for="hireYear">Год трудоустройства</Label>
-                                <Input bsSize="sm" id="hireYear" value={props.hireYear} onChange={e => handleStateChange({ hireYear: e.target.value })} />
+                                <InputMask
+                                    mask={yearMask}
+                                    maskChar={null}
+                                    bsSize="sm"
+                                    id="hireYear"
+                                    value={props.hireYear}
+                                    onChange={e => handleStateChange({ hireYear: e.target.value })}
+                                />
                             </FormGroup>
                         </Col>
                     </Row>
