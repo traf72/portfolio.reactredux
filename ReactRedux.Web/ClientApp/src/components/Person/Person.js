@@ -17,23 +17,8 @@ import { push } from 'connected-react-router';
 import { personEdit as personEditRoute } from '../../routes';
 
 class Person extends Component {
-    static getDerivedStateFromProps(props, state) {
-        if (state.loadComplete) {
-            return null;
-        }
-
-        const { person } = props;
-
-        let loadComplete = person.loadComplete;
-        if (state.loadComplete == null) {
-            loadComplete = loadComplete && person.isActual;
-        }
-
-        return { loadComplete };
-    }
-
     state = {
-        loadComplete: null,
+        loadComplete: false,
     }
 
     componentDidMount() {
@@ -41,14 +26,25 @@ class Person extends Component {
             return;
         }
 
-        this.props.showPageLoader();
-        this.props.fetchPerson(this.props.id);
+        this.ensureDataLoaded();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (!prevState.loadComplete && this.state.loadComplete) {
-            this.props.hidePageLoader();
+    componentDidUpdate(prevProps) {
+        if (prevProps.id !== this.props.id) {
+            this.setState({ loadComplete: false });
+            this.ensureDataLoaded();
+            return;
         }
+
+        if (!this.state.loadComplete && !prevProps.loadComplete && this.props.loadComplete) {
+            this.props.hidePageLoader();
+            this.setState({ loadComplete: true });
+        }
+    }
+
+    ensureDataLoaded() {
+        this.props.showPageLoader();
+        this.props.fetchPerson(this.props.id);
     }
 
     editPerson = () => {
@@ -95,7 +91,7 @@ Person.propTypes = {
     person: PropTypes.object.isRequired,
 }
 
-export default connect((state, ownProps) => {
-    return { person: personFullSelector(state, ownProps.id) };
+export default connect(state => {
+    return personFullSelector(state);
 }, { ...pageLoaderActions, fetchPerson, push }
 )(Person);

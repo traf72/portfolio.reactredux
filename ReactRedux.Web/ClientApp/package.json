@@ -31,6 +31,7 @@
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
+    "reselect": "^4.0.0",
     "shallowequal": "^1.1.0",
     "uuid": "^3.3.2"
   },

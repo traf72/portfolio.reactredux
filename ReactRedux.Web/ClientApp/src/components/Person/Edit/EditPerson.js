@@ -15,98 +15,23 @@ import ForeignerBlock from './ForeignerBlock';
 import FilesBlock from './FilesBlock';
 import { fetchCatalog } from '../../../ducks/Catalog';
 import {
-    fetchPerson, savePerson, newPerson, newPersonSelector, personFullSelector,
+    fetchPerson, savePerson, newPerson, personNewSelector, personFullSelector,
     personalInfoBlockCatalogs, educationBlockCatalogs, workInfoBlockCatalogs, languagesBlockCatalogs,
-    socialNetworksBlockCatalogs, foreignerBlockCatalogs, allPersonCatalogs
+    socialNetworksBlockCatalogs, foreignerBlockCatalogs
 } from '../../../ducks/Person';
 import { showWarningAlert } from '../../../ducks/Alert';
 import { allActions as pageLoaderActions } from '../../../ducks/PageLoader';
 
 class EditPerson extends Component {
-    static getDerivedStateFromProps(props, state) {
-        if (state.loadComplete) {
-            return null;
+    constructor(props) {
+        super(props);
+
+        const loadComplete = this.isNewPerson() ? this.props.loadComplete : false;
+        this.state = {
+            person: loadComplete ? this.getInitialPersonState() : {},
+            loadComplete,
+            isFormSubmitted: false,
         }
-
-        const { person } = props;
-
-        let loadComplete = person.loadComplete;
-        if (state.loadComplete == null) {
-            loadComplete = loadComplete && person.isActual;
-        }
-
-        if (!loadComplete) {
-            return { loadComplete };
-        }
-
-        const {
-            personalInfo = {}, educationInfo = {}, workInfo = {}, languagesInfo = [],
-            socialNetworksInfo = [], filesInfo = {}, filesDirectoryId,
-        } = person;
-
-        return {
-            loadComplete: true,
-            person: {
-                personalInfo: {
-                    id: personalInfo.id,
-                    lastName: personalInfo.lastName || '',
-                    firstName: personalInfo.firstName || '',
-                    middleName: personalInfo.middleName || '',
-                    selectedSex: personalInfo.sex,
-                    birthDate: personalInfo.birthDate,
-                    birthPlace: personalInfo.birthPlace || '',
-                    email: personalInfo.email || '',
-                    phone: personalInfo.phone || '',
-                    selectedDistrict: personalInfo.federalDistrict,
-                    selectedRegion: personalInfo.region,
-                    selectedDocument: personalInfo.document,
-                    documentNumber: personalInfo.documentNumber || '',
-                    photoId: personalInfo.photoId,
-                },
-                educationInfo: {
-                    selectedEducationLevel: educationInfo.educationLevel,
-                    university: educationInfo.university || '',
-                    specialty: educationInfo.specialty || '',
-                    graduationYear: educationInfo.graduationYear || '',
-                    educationExtraInfo: educationInfo.educationExtraInfo || '',
-                },
-                workInfo: {
-                    currentCompany: workInfo.currentCompany || '',
-                    currentPosition: workInfo.currentPosition || '',
-                    selectedIndustry: workInfo.industry,
-                    selectedWorkArea: workInfo.workArea,
-                    selectedManagementLevel: workInfo.managementLevel,
-                    selectedExperience: workInfo.managementExperience,
-                    selectedEmployeesNumber: workInfo.employeesNumber,
-                    hireYear: workInfo.hireYear || '',
-                    previousWorkPlaces: workInfo.previousWorkPlaces || '',
-                },
-                languagesInfo: {
-                    knownLanguages: List(languagesInfo.knownLanguages),
-                },
-                socialNetworksInfo: {
-                    networks: List(socialNetworksInfo.networks),
-                },
-                foreignerInfo: {
-                    selectedNationality: personalInfo.nationality,
-                    readyMoveToRussia: personalInfo.readyMoveToRussia || false,
-                },
-                familyInfo: {
-                    selectedFamilyStatus: personalInfo.familyStatus,
-                    childrenInfo: personalInfo.childrenInfo || '',
-                },
-                filesInfo: {
-                    files: List(filesInfo.files),
-                },
-                filesDirectoryId,
-            },
-        }
-    }
-
-    state = {
-        person: {},
-        loadComplete: null,
-        isFormSubmitted: false,
     }
 
     componentDidMount() {
@@ -114,6 +39,34 @@ class EditPerson extends Component {
             return;
         }
 
+        this.ensureDataLoaded();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.id !== this.props.id) {
+            this.setState({
+                loadComplete: false,
+                person: {},
+            });
+
+            this.ensureDataLoaded();
+            return;
+        }
+
+        if (!this.state.loadComplete && !prevProps.loadComplete && this.props.loadComplete) {
+            this.props.hidePageLoader();
+            this.setState({
+                loadComplete: true,
+                person: this.getInitialPersonState(),
+            });
+        }
+
+        if (prevProps.saveInProgress && !this.props.saveInProgress) {
+            this.props.hidePageLoader();
+        }
+    }
+
+    ensureDataLoaded() {
         this.props.showPageLoader();
         if (this.isNewPerson()) {
             this.props.newPerson();
@@ -122,11 +75,68 @@ class EditPerson extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if ((!prevState.loadComplete && this.state.loadComplete)
-            || (prevProps.person.saveInProgress && !this.props.person.saveInProgress)) {
-            this.props.hidePageLoader();
-        }
+    getInitialPersonState() {
+        const { person } = this.props;
+
+        const {
+            personalInfo = {}, educationInfo = {}, workInfo = {}, languagesInfo = [],
+            socialNetworksInfo = [], filesInfo = {}, filesDirectoryId,
+        } = person;
+
+        return {
+            personalInfo: {
+                id: personalInfo.id,
+                lastName: personalInfo.lastName || '',
+                firstName: personalInfo.firstName || '',
+                middleName: personalInfo.middleName || '',
+                selectedSex: personalInfo.sex,
+                birthDate: personalInfo.birthDate,
+                birthPlace: personalInfo.birthPlace || '',
+                email: personalInfo.email || '',
+                phone: personalInfo.phone || '',
+                selectedDistrict: personalInfo.federalDistrict,
+                selectedRegion: personalInfo.region,
+                selectedDocument: personalInfo.document,
+                documentNumber: personalInfo.documentNumber || '',
+                photoId: personalInfo.photoId,
+            },
+            educationInfo: {
+                selectedEducationLevel: educationInfo.educationLevel,
+                university: educationInfo.university || '',
+                specialty: educationInfo.specialty || '',
+                graduationYear: educationInfo.graduationYear || '',
+                educationExtraInfo: educationInfo.educationExtraInfo || '',
+            },
+            workInfo: {
+                currentCompany: workInfo.currentCompany || '',
+                currentPosition: workInfo.currentPosition || '',
+                selectedIndustry: workInfo.industry,
+                selectedWorkArea: workInfo.workArea,
+                selectedManagementLevel: workInfo.managementLevel,
+                selectedExperience: workInfo.managementExperience,
+                selectedEmployeesNumber: workInfo.employeesNumber,
+                hireYear: workInfo.hireYear || '',
+                previousWorkPlaces: workInfo.previousWorkPlaces || '',
+            },
+            languagesInfo: {
+                knownLanguages: List(languagesInfo.knownLanguages),
+            },
+            socialNetworksInfo: {
+                networks: List(socialNetworksInfo.networks),
+            },
+            foreignerInfo: {
+                selectedNationality: personalInfo.nationality,
+                readyMoveToRussia: personalInfo.readyMoveToRussia || false,
+            },
+            familyInfo: {
+                selectedFamilyStatus: personalInfo.familyStatus,
+                childrenInfo: personalInfo.childrenInfo || '',
+            },
+            filesInfo: {
+                files: List(filesInfo.files),
+            },
+            filesDirectoryId,
+        };
     }
 
     isNewPerson() {
@@ -306,18 +316,12 @@ class EditPerson extends Component {
 
 EditPerson.propTypes = {
     id: PropTypes.number,
-    person: PropTypes.object.isRequired,
+    person: PropTypes.object,
 }
 
 export default connect(
     (state, ownProps) => {
-        const person = ownProps.id ? personFullSelector(state, ownProps.id) : newPersonSelector(state);
-        const catalogs = allPersonCatalogs.reduce((obj, name) => {
-            obj[name] = state.catalogs[name];
-            return obj;
-        }, {});
-
-        return { person, catalogs };
+        return ownProps.id ? personFullSelector(state) : personNewSelector(state);
     },
     { ...pageLoaderActions, fetchPerson, savePerson, newPerson, fetchCatalog, showWarningAlert }
 )(EditPerson);

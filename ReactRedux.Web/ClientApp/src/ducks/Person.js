@@ -1,5 +1,6 @@
 import { appName } from '../constants';
 import { getPerson, putPerson } from '../api';
+import { createSelector } from 'reselect';
 import { takeEvery, takeLatest, takeLeading, put, call, select, all } from 'redux-saga/effects';
 import { person as personRoute } from '../routes';
 import { push } from 'connected-react-router';
@@ -37,8 +38,6 @@ export const foreignerBlockCatalogs = [COUNTRIES];
 export const allPersonCatalogs = [...personalInfoBlockCatalogs, ...educationBlockCatalogs, ...workInfoBlockCatalogs,
 ...languagesBlockCatalogs, ...socialNetworksBlockCatalogs, ...foreignerBlockCatalogs
 ];
-
-const cacheTimeoutInSeconds = 60;
 
 const initialState = {
     loading: false,
@@ -231,122 +230,135 @@ export const saga = function* () {
     ]);
 }
 
-const isPersonActual = person => {
-    return person.loadComplete && !person.error && (now().getTime() - person.loadTime) / 1000 < cacheTimeoutInSeconds;
-}
+const isCatalogsLoaded = allCatalogs =>
+    allPersonCatalogs.every(c => allCatalogs[c].loadComplete);
 
-const isCatalogsLoaded = allCatalogs => {
-    for (let catalogName of allPersonCatalogs) {
-        const catalog = allCatalogs[catalogName];
-        if (!catalog.loadComplete) {
-            return false;
+const getPersonCatalogs = catalogs => 
+    allPersonCatalogs.reduce((acc, name) => {
+        acc[name] = catalogs[name];
+        return acc;
+    }, {});
+
+const catalogsSelector = state => state.catalogs;
+const personSelector = state => state.person;
+
+const notReady = {
+    loadComplete: false,
+    person: {},
+    catalogs: [],
+};
+
+export const personNewSelector = createSelector(
+    catalogsSelector,
+    catalogs => {
+        if (!isCatalogsLoaded(catalogs)) {
+            return notReady;
+        }
+
+        return {
+            loadComplete: true,
+            person: {
+                personalInfo: {
+                    document: catalogs[IDENTITY_DOCUMENTS].data.find(x => x.code === defaultDocumentCode),
+                },
+                educationInfo: {},
+                workInfo: {},
+                languagesInfo: {
+                    knownLanguages: [
+                        {
+                            language: null,
+                            languageLevel: null
+                        },
+                        {
+                            language: null,
+                            languageLevel: null
+                        }
+                    ]
+                },
+                socialNetworksInfo: {
+                    networks: defaultSocialNetworks.map(code => ({
+                        network: catalogs[SOCIAL_NETWORKS].data.find(x => x.code === code),
+                        value: ''
+                    })).filter(x => x.network),
+                },
+                filesInfo: {
+                    files: [],
+                },
+                filesDirectoryId: uuid(),
+            },
+            catalogs: getPersonCatalogs(catalogs),
         }
     }
-    return true;
-}
+);
 
-export const newPersonSelector = state => {
-    if (!isCatalogsLoaded(state.catalogs)) {
-        return { loadComplete: false };
-    }
+export const personFullSelector = createSelector(
+    catalogsSelector,
+    personSelector,
+    (catalogs, person) => {
+        if (!person.loadComplete || !isCatalogsLoaded(catalogs)) {
+            return notReady;
+        }
 
-    return {
-        loadComplete: true,
-        isActual: true,
-        personalInfo: {
-            document: state.catalogs[IDENTITY_DOCUMENTS].data.find(x => x.code === defaultDocumentCode),
-        },
-        educationInfo: {},
-        workInfo: {},
-        languagesInfo: {
-            knownLanguages: [
-                {
-                    language: null,
-                    languageLevel: null
+        let {
+            educationInfo = {}, workInfo = {}, languages = [],
+            socialNetworks = [], files = [], filesDirectoryId, ...personalInfo
+        } = person.data;
+
+        // Так как с сервера приходит null, то дефолтные значения не срабатывают
+        files = files || [];
+        socialNetworks = socialNetworks || [];
+        languages = languages || [];
+
+        const getCatalogItem = (catalogName, itemId) => {
+            return itemId && catalogs[catalogName].indexedData[itemId];
+        }
+
+        return {
+            loadComplete: true,
+            saveInProgress: person.saving,
+            person: {
+                personalInfo: {
+                    ...personalInfo,
+                    sex: getCatalogItem(SEX, personalInfo.sex),
+                    birthDate: personalInfo.birthDate ? new Date(personalInfo.birthDate) : null,
+                    federalDistrict: getCatalogItem(FEDERAL_DISTRICTS, personalInfo.federalDistrictId),
+                    region: getCatalogItem(REGIONS, personalInfo.regionId),
+                    document: getCatalogItem(IDENTITY_DOCUMENTS, personalInfo.documentId),
+                    familyStatus: getCatalogItem(FAMILY_STATUS, personalInfo.familyStatus),
+                    childrenInfo: personalInfo.childrenInfo,
+                    nationality: getCatalogItem(COUNTRIES, personalInfo.nationalityId),
                 },
-                {
-                    language: null,
-                    languageLevel: null
-                }
-            ]
-        },
-        socialNetworksInfo: {
-            networks: defaultSocialNetworks.map(code => ({
-                network: state.catalogs[SOCIAL_NETWORKS].data.find(x => x.code === code),
-                value: ''
-            })).filter(x => x.network),
-        },
-        filesInfo: {
-            files: [],
-        },
-        filesDirectoryId: uuid(),
+                educationInfo: {
+                    ...educationInfo,
+                    educationLevel: getCatalogItem(EDUCATIONAL_LEVELS, educationInfo.educationLevelId),
+                },
+                workInfo: {
+                    ...workInfo,
+                    industry: getCatalogItem(INDUSTRIES, workInfo.industryId),
+                    workArea: getCatalogItem(WORK_AREAS, workInfo.workAreaId),
+                    managementLevel: getCatalogItem(MANAGEMENT_LEVELS, workInfo.managementLevelId),
+                    managementExperience: getCatalogItem(MANAGEMENT_EXPERIENCES, workInfo.managementExperienceId),
+                    employeesNumber: getCatalogItem(EMPLOYEES_NUMBERS, workInfo.employeesNumberId),
+                },
+                languagesInfo: {
+                    knownLanguages:
+                        languages.map(item => ({
+                            language: getCatalogItem(LANGUAGES, item.languageId),
+                            languageLevel: getCatalogItem(LANGUAGE_LEVELS, item.languageLevelId),
+                        }))
+                },
+                socialNetworksInfo: {
+                    networks: socialNetworks.map(item => ({
+                        network: getCatalogItem(SOCIAL_NETWORKS, item.networkId),
+                        value: item.value,
+                    }))
+                },
+                filesInfo: {
+                    files,
+                },
+                filesDirectoryId,
+            },
+            catalogs: getPersonCatalogs(catalogs),
+        }
     }
-}
-
-export const personFullSelector = (state, id) => {
-    const { person, catalogs: allCatalogs } = state;
-
-    if (!person.loadComplete || !isCatalogsLoaded(state.catalogs)) {
-        return { loadComplete: false };
-    }
-
-    let {
-        educationInfo = {}, workInfo = {}, languages = [],
-        socialNetworks = [], files = [], filesDirectoryId, ...personalInfo
-    } = person.data;
-
-    // Так как с сервера приходит null, то дефолтные значения не срабатывают
-    files = files || [];
-    socialNetworks = socialNetworks || [];
-    languages = languages || [];
-
-    const getCatalogItem = (catalogName, itemId) => {
-        return itemId && allCatalogs[catalogName].indexedData[itemId];
-    }
-
-    return {
-        loadComplete: true,
-        isActual: id === person.id && isPersonActual(person),
-        saveInProgress: person.saving,
-        personalInfo: {
-            ...personalInfo,
-            sex: getCatalogItem(SEX, personalInfo.sex),
-            birthDate: personalInfo.birthDate ? new Date(personalInfo.birthDate) : null,
-            federalDistrict: getCatalogItem(FEDERAL_DISTRICTS, personalInfo.federalDistrictId),
-            region: getCatalogItem(REGIONS, personalInfo.regionId),
-            document: getCatalogItem(IDENTITY_DOCUMENTS, personalInfo.documentId),
-            familyStatus: getCatalogItem(FAMILY_STATUS, personalInfo.familyStatus),
-            childrenInfo: personalInfo.childrenInfo,
-            nationality: getCatalogItem(COUNTRIES, personalInfo.nationalityId),
-        },
-        educationInfo: {
-            ...educationInfo,
-            educationLevel: getCatalogItem(EDUCATIONAL_LEVELS, educationInfo.educationLevelId),
-        },
-        workInfo: {
-            ...workInfo,
-            industry: getCatalogItem(INDUSTRIES, workInfo.industryId),
-            workArea: getCatalogItem(WORK_AREAS, workInfo.workAreaId),
-            managementLevel: getCatalogItem(MANAGEMENT_LEVELS, workInfo.managementLevelId),
-            managementExperience: getCatalogItem(MANAGEMENT_EXPERIENCES, workInfo.managementExperienceId),
-            employeesNumber: getCatalogItem(EMPLOYEES_NUMBERS, workInfo.employeesNumberId),
-        },
-        languagesInfo: {
-            knownLanguages:
-                languages.map(item => ({
-                    language: getCatalogItem(LANGUAGES, item.languageId),
-                    languageLevel: getCatalogItem(LANGUAGE_LEVELS, item.languageLevelId),
-                }))
-        },
-        socialNetworksInfo: {
-            networks: socialNetworks.map(item => ({
-                network: getCatalogItem(SOCIAL_NETWORKS, item.networkId),
-                value: item.value,
-            }))
-        },
-        filesInfo: {
-            files,
-        },
-        filesDirectoryId,
-    }
-}
+);
