@@ -9,11 +9,13 @@ import PhotoImg from '../common/PhotoImg';
 import { Form } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { search, selector } from '../../ducks/Search';
 import { allActions as pageLoaderActions } from '../../ducks/PageLoader';
 import { person as personRoute } from '../../routes';
 import { fetchCatalog } from '../../ducks/Catalog';
-import { personalInfoBlockCatalogs, educationBlockCatalogs, workInfoBlockCatalogs, allSearchCatalogs } from '../../ducks/Search';
+import {
+    search, searchSelector, catalogsSelector, personalInfoBlockCatalogs,
+    educationBlockCatalogs, workInfoBlockCatalogs, allSearchCatalogs
+} from '../../ducks/Search';
 
 const columns = [
     {
@@ -223,12 +225,9 @@ class Search extends Component {
 }
 
 export default connect(state => {
-    const searchResult = selector(state.search);
-    const catalogs = allSearchCatalogs.reduce((obj, name) => {
-        obj[name] = state.catalogs[name];
-        return obj;
-    }, {});
-
-    return { searchResult, catalogs };
+    return {
+        searchResult: searchSelector(state),
+        catalogs: catalogsSelector(state),
+    };
 }, { ...pageLoaderActions, search, fetchCatalog }
 )(Search);

@@ -5,7 +5,7 @@ import DataGrid from '../common/DataGrid';
 import PhotoImg from '../common/PhotoImg';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { search, selector } from '../../ducks/Search';
+import { search, searchSelector } from '../../ducks/Search';
 
 const columns = [
     {
@@ -79,5 +79,5 @@ class Dashbord extends Component {
 }
 
 export default connect(state => {
-    return { ...selector(state.search) };
+    return { ...searchSelector(state) };
 }, { search })(Dashbord);

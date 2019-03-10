@@ -1,5 +1,6 @@
 import { appName } from '../constants';
 import { searchForPersons } from '../api';
+import { createSelector } from 'reselect';
 import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { showErrorAlert } from './Alert';
 import RequestError from '../RequestError';
@@ -111,25 +112,41 @@ export const saga = function* () {
     yield takeLatest(SEARCH, searchSaga);
 }
 
-export const selector = searchState => {
-    return {
-        loadComplete: searchState.loadComplete,
-        data: searchState.data.map(x => ({
-            id: x.id,
-            fio: `${x.lastName} ${x.firstName} ${x.middleName}`,
-            sex: sexEnum[x.sex],
-            birthDate: x.birthDate && getFullBirthDate(new Date(x.birthDate)),
-            residence: x.region,
-            phone: x.phone,
-            email: x.email,
-            educationLevel: x.educationLevel,
-            university: x.university,
-            currentCompany: x.currentCompany,
-            currentPosition: x.currentPosition,
-            industry: x.industry,
-            managementLevel: x.managementLevel,
-            managementExperience: x.managementExperience,
-            photoId: x.photoId,
-        })),
+const getSearch = state => state.search;
+const getCatalogs = state => state.catalogs;
+
+export const searchSelector = createSelector(
+    getSearch,
+    search => {
+        return {
+            loadComplete: search.loadComplete,
+            data: search.data.map(x => ({
+                id: x.id,
+                fio: `${x.lastName} ${x.firstName} ${x.middleName}`,
+                sex: sexEnum[x.sex],
+                birthDate: x.birthDate && getFullBirthDate(new Date(x.birthDate)),
+                residence: x.region,
+                phone: x.phone,
+                email: x.email,
+                educationLevel: x.educationLevel,
+                university: x.university,
+                currentCompany: x.currentCompany,
+                currentPosition: x.currentPosition,
+                industry: x.industry,
+                managementLevel: x.managementLevel,
+                managementExperience: x.managementExperience,
+                photoId: x.photoId,
+            })),
+        }
     }
-}
+);
+
+export const catalogsSelector = createSelector(
+    getCatalogs,
+    catalogs => {
+        return allSearchCatalogs.reduce((obj, name) => {
+            obj[name] = catalogs[name];
+            return obj;
+        }, {});
+    }
+);

@@ -63,10 +63,9 @@ Sidebar.defaultProps = {
     className: '',
 }
 
-export default connect(
-    state => {
-        return {
-            'path': state.router.location.pathname,
-        }
-    },
+export default connect(state => {
+    return {
+        'path': state.router.location.pathname,
+    }
+},
 )(Sidebar);
