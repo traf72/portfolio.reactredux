@@ -11,7 +11,7 @@ import ForeignerBlock from './ForeignerBlock';
 import FilesBlock from './FilesBlock';
 import { connect } from 'react-redux';
 import Button from '../common/Button';
-import { fetchPerson, personFullSelector } from '../../ducks/Person';
+import { fetchPerson, personFullSelector, isPersonReadySelector } from '../../ducks/Person';
 import { allActions as pageLoaderActions } from '../../ducks/PageLoader';
 import { push } from 'connected-react-router';
 import { personEdit as personEditRoute } from '../../routes';
@@ -88,10 +88,18 @@ class Person extends Component {
 
 Person.propTypes = {
     id: PropTypes.number.isRequired,
-    person: PropTypes.object.isRequired,
+    person: PropTypes.object,
 }
 
 export default connect(state => {
-    return personFullSelector(state);
+    const ready = isPersonReadySelector(state);
+    if (!ready) {
+        return { loadComplete: false };
+    }
+
+    return {
+        loadComplete: true,
+        person: personFullSelector(state),
+    }
 }, { ...pageLoaderActions, fetchPerson, push }
 )(Person);

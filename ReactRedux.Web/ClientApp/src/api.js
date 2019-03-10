@@ -8,8 +8,8 @@ export const getPerson = id => {
     return axios.get(`api/person/${id}`);
 }
 
-export const putPerson = person => {
-    return axios.put(`api/person`, person);
+export const createOrEditPerson = person => {
+    return axios.post(`api/person`, person);
 }
 
 export const searchForPersons = (criteria = {}) => {

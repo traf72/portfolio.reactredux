@@ -11,8 +11,8 @@ namespace ReactRedux.Web.Controllers
     [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
-        [HttpPut]
-        public async Task<PersonVm> Put(PersonVm person)
+        [HttpPost]
+        public async Task<PersonVm> CreateOrEdit(PersonVm person)
         {
             if (person.Id == 0)
             {

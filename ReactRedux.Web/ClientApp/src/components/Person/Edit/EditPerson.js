@@ -15,8 +15,9 @@ import ForeignerBlock from './ForeignerBlock';
 import FilesBlock from './FilesBlock';
 import { fetchCatalog } from '../../../ducks/Catalog';
 import {
-    fetchPerson, savePerson, newPerson, personNewSelector, personFullSelector,
-    personalInfoBlockCatalogs, educationBlockCatalogs, workInfoBlockCatalogs, languagesBlockCatalogs,
+    fetchPerson, savePerson, newPerson, personNewSelector, personFullSelector, personCatalogsSelector,
+    isNewPersonReadySelector, isPersonReadySelector, personalInfoBlockCatalogs, educationBlockCatalogs,
+    workInfoBlockCatalogs, languagesBlockCatalogs,
     socialNetworksBlockCatalogs, foreignerBlockCatalogs
 } from '../../../ducks/Person';
 import { showWarningAlert } from '../../../ducks/Alert';
@@ -321,7 +322,27 @@ EditPerson.propTypes = {
 
 export default connect(
     (state, ownProps) => {
-        return ownProps.id ? personFullSelector(state) : personNewSelector(state);
+        let isReadySelector;
+        let personSelector;
+        if (ownProps.id) {
+            isReadySelector = isPersonReadySelector;
+            personSelector = personFullSelector;
+        } else {
+            isReadySelector = isNewPersonReadySelector;
+            personSelector = personNewSelector;
+        }
+
+        const isReady = isReadySelector(state);
+        if (!isReady) {
+            return { loadComplete: false };
+        }
+
+        return {
+            loadComplete: true,
+            saveInProgress: state.person && state.person.saving,
+            person: personSelector(state),
+            catalogs: personCatalogsSelector(state),
+        }
     },
     { ...pageLoaderActions, fetchPerson, savePerson, newPerson, fetchCatalog, showWarningAlert }
 )(EditPerson);

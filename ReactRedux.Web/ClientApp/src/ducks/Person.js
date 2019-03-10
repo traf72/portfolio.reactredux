@@ -1,5 +1,5 @@
 import { appName } from '../constants';
-import { getPerson, putPerson } from '../api';
+import { getPerson, createOrEditPerson } from '../api';
 import { createSelector } from 'reselect';
 import { takeEvery, takeLatest, takeLeading, put, call, select, all } from 'redux-saga/effects';
 import { person as personRoute } from '../routes';
@@ -202,7 +202,7 @@ export const savePersonSaga = function* (action) {
     const isLocationChanged = state => currentLocation !== state.router.location;
     const isPersonChanged = state => state.person.id !== id;
     try {
-        const response = yield call(putPerson, person);
+        const response = yield call(createOrEditPerson, person);
         const savedPerson = response.data;
         const state = yield select();
 
@@ -233,72 +233,66 @@ export const saga = function* () {
 const isCatalogsLoaded = allCatalogs =>
     allPersonCatalogs.every(c => allCatalogs[c].loadComplete);
 
-const getPersonCatalogs = catalogs => 
-    allPersonCatalogs.reduce((acc, name) => {
-        acc[name] = catalogs[name];
-        return acc;
-    }, {});
-
 const catalogsSelector = state => state.catalogs;
 const personSelector = state => state.person;
 
-const notReady = {
-    loadComplete: false,
-    person: {},
-    catalogs: [],
-};
+export const personCatalogsSelector = createSelector(
+    catalogsSelector,
+    catalogs =>
+        allPersonCatalogs.reduce((acc, name) => {
+            acc[name] = catalogs[name];
+            return acc;
+        }, {})
+);
+
+export const isNewPersonReadySelector = createSelector(
+    catalogsSelector,
+    catalogs => isCatalogsLoaded(catalogs)
+);
+
+export const isPersonReadySelector = createSelector(
+    catalogsSelector,
+    personSelector,
+    (catalogs, person) => person.loadComplete && isCatalogsLoaded(catalogs)
+);
 
 export const personNewSelector = createSelector(
     catalogsSelector,
-    catalogs => {
-        if (!isCatalogsLoaded(catalogs)) {
-            return notReady;
-        }
-
-        return {
-            loadComplete: true,
-            person: {
-                personalInfo: {
-                    document: catalogs[IDENTITY_DOCUMENTS].data.find(x => x.code === defaultDocumentCode),
+    catalogs => ({
+        personalInfo: {
+            document: catalogs[IDENTITY_DOCUMENTS].data.find(x => x.code === defaultDocumentCode),
+        },
+        educationInfo: {},
+        workInfo: {},
+        languagesInfo: {
+            knownLanguages: [
+                {
+                    language: null,
+                    languageLevel: null
                 },
-                educationInfo: {},
-                workInfo: {},
-                languagesInfo: {
-                    knownLanguages: [
-                        {
-                            language: null,
-                            languageLevel: null
-                        },
-                        {
-                            language: null,
-                            languageLevel: null
-                        }
-                    ]
-                },
-                socialNetworksInfo: {
-                    networks: defaultSocialNetworks.map(code => ({
-                        network: catalogs[SOCIAL_NETWORKS].data.find(x => x.code === code),
-                        value: ''
-                    })).filter(x => x.network),
-                },
-                filesInfo: {
-                    files: [],
-                },
-                filesDirectoryId: uuid(),
-            },
-            catalogs: getPersonCatalogs(catalogs),
-        }
-    }
+                {
+                    language: null,
+                    languageLevel: null
+                }
+            ]
+        },
+        socialNetworksInfo: {
+            networks: defaultSocialNetworks.map(code => ({
+                network: catalogs[SOCIAL_NETWORKS].data.find(x => x.code === code),
+                value: ''
+            })).filter(x => x.network),
+        },
+        filesInfo: {
+            files: [],
+        },
+        filesDirectoryId: uuid(),
+    })
 );
 
 export const personFullSelector = createSelector(
     catalogsSelector,
     personSelector,
     (catalogs, person) => {
-        if (!person.loadComplete || !isCatalogsLoaded(catalogs)) {
-            return notReady;
-        }
-
         let {
             educationInfo = {}, workInfo = {}, languages = [],
             socialNetworks = [], files = [], filesDirectoryId, ...personalInfo
@@ -314,51 +308,46 @@ export const personFullSelector = createSelector(
         }
 
         return {
-            loadComplete: true,
-            saveInProgress: person.saving,
-            person: {
-                personalInfo: {
-                    ...personalInfo,
-                    sex: getCatalogItem(SEX, personalInfo.sex),
-                    birthDate: personalInfo.birthDate ? new Date(personalInfo.birthDate) : null,
-                    federalDistrict: getCatalogItem(FEDERAL_DISTRICTS, personalInfo.federalDistrictId),
-                    region: getCatalogItem(REGIONS, personalInfo.regionId),
-                    document: getCatalogItem(IDENTITY_DOCUMENTS, personalInfo.documentId),
-                    familyStatus: getCatalogItem(FAMILY_STATUS, personalInfo.familyStatus),
-                    childrenInfo: personalInfo.childrenInfo,
-                    nationality: getCatalogItem(COUNTRIES, personalInfo.nationalityId),
-                },
-                educationInfo: {
-                    ...educationInfo,
-                    educationLevel: getCatalogItem(EDUCATIONAL_LEVELS, educationInfo.educationLevelId),
-                },
-                workInfo: {
-                    ...workInfo,
-                    industry: getCatalogItem(INDUSTRIES, workInfo.industryId),
-                    workArea: getCatalogItem(WORK_AREAS, workInfo.workAreaId),
-                    managementLevel: getCatalogItem(MANAGEMENT_LEVELS, workInfo.managementLevelId),
-                    managementExperience: getCatalogItem(MANAGEMENT_EXPERIENCES, workInfo.managementExperienceId),
-                    employeesNumber: getCatalogItem(EMPLOYEES_NUMBERS, workInfo.employeesNumberId),
-                },
-                languagesInfo: {
-                    knownLanguages:
-                        languages.map(item => ({
-                            language: getCatalogItem(LANGUAGES, item.languageId),
-                            languageLevel: getCatalogItem(LANGUAGE_LEVELS, item.languageLevelId),
-                        }))
-                },
-                socialNetworksInfo: {
-                    networks: socialNetworks.map(item => ({
-                        network: getCatalogItem(SOCIAL_NETWORKS, item.networkId),
-                        value: item.value,
-                    }))
-                },
-                filesInfo: {
-                    files,
-                },
-                filesDirectoryId,
+            personalInfo: {
+                ...personalInfo,
+                sex: getCatalogItem(SEX, personalInfo.sex),
+                birthDate: personalInfo.birthDate ? new Date(personalInfo.birthDate) : null,
+                federalDistrict: getCatalogItem(FEDERAL_DISTRICTS, personalInfo.federalDistrictId),
+                region: getCatalogItem(REGIONS, personalInfo.regionId),
+                document: getCatalogItem(IDENTITY_DOCUMENTS, personalInfo.documentId),
+                familyStatus: getCatalogItem(FAMILY_STATUS, personalInfo.familyStatus),
+                childrenInfo: personalInfo.childrenInfo,
+                nationality: getCatalogItem(COUNTRIES, personalInfo.nationalityId),
             },
-            catalogs: getPersonCatalogs(catalogs),
+            educationInfo: {
+                ...educationInfo,
+                educationLevel: getCatalogItem(EDUCATIONAL_LEVELS, educationInfo.educationLevelId),
+            },
+            workInfo: {
+                ...workInfo,
+                industry: getCatalogItem(INDUSTRIES, workInfo.industryId),
+                workArea: getCatalogItem(WORK_AREAS, workInfo.workAreaId),
+                managementLevel: getCatalogItem(MANAGEMENT_LEVELS, workInfo.managementLevelId),
+                managementExperience: getCatalogItem(MANAGEMENT_EXPERIENCES, workInfo.managementExperienceId),
+                employeesNumber: getCatalogItem(EMPLOYEES_NUMBERS, workInfo.employeesNumberId),
+            },
+            languagesInfo: {
+                knownLanguages:
+                    languages.map(item => ({
+                        language: getCatalogItem(LANGUAGES, item.languageId),
+                        languageLevel: getCatalogItem(LANGUAGE_LEVELS, item.languageLevelId),
+                    }))
+            },
+            socialNetworksInfo: {
+                networks: socialNetworks.map(item => ({
+                    network: getCatalogItem(SOCIAL_NETWORKS, item.networkId),
+                    value: item.value,
+                }))
+            },
+            filesInfo: {
+                files,
+            },
+            filesDirectoryId,
         }
     }
 );
