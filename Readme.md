@@ -1,4 +1,4 @@
-## This is a simplified little part of a real project written on:
+## Test React/Redux project written on:
 
 * SQLite
 * ASP.NET Core 2
@@ -19,5 +19,3 @@ If you don't have Visual Studio 2017 you can run the project as follows:
 * Open http://localhost:5000 address in your browser.
 
 To run client tests execute the `npm test` command from the ReactRedux.Web\ClientApp folder.
-
-All code from database to layout is written personally.
